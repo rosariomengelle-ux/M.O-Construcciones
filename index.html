@@ -69,7 +69,7 @@
     transition: color 0.4s;
   }
   .nav.scrolled .nav-brand { color: var(--tierra-oscuro); }
-  .nav-logo { height: 70px; width: auto; display: block; filter: brightness(10); transition: filter 0.4s; }
+  .nav-logo { height: 70px; width: auto; display: block; vertical-align: middle; filter: brightness(10); transition: filter 0.4s; }
   .nav.scrolled .nav-logo { filter: brightness(0.3); }
   .nav-brand-text {
     font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
@@ -297,14 +297,15 @@
     background: rgba(15,11,7,0.55); padding: 10px 16px;
     font-size: 11px; color: rgba(240,234,225,0.65); letter-spacing: 0.5px;
   }
-  .nos-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 72px; font-weight: 300; color: var(--tierra-acento);
-    line-height: 1; margin-top: 0.25rem;
+  .nos-num-c {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; font-weight: 400; color: var(--tierra-oscuro);
+    letter-spacing: 1px; line-height: 1.6;
+    margin-bottom: 1.5rem; margin-top: 0.25rem;
   }
-  .nos-num-label {
-    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--tierra-medio); margin-bottom: 1.5rem; margin-top: 4px;
+  .nos-num-grande {
+    font-size: 32px; font-weight: 300; color: var(--tierra-acento);
+    display: inline;
   }
   .nos-intro { font-size: 15px; color: #6B5840; line-height: 1.75; margin-bottom: 0.5rem; }
   .nos-highlight {
@@ -552,7 +553,7 @@
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-brand" style="display:flex;align-items:center;gap:10px;"><img src="favicon.png" alt="MO Construcciones" class="nav-logo"><span class="nav-brand-text">Construcciones</span></a>
+  <a href="#" class="nav-brand" style="display:flex;align-items:center;gap:10px;"><img src="favicon.png" alt="MO Construcciones" class="nav-logo" style="display:block;vertical-align:middle;"><span class="nav-brand-text">Construcciones</span></a>
   <div class="nav-links">
     <a href="#obras">Obras</a>
     <a href="#nosotros">Nosotros</a>
@@ -594,7 +595,6 @@
     <h2 class="sec-title">Nuestras obras</h2>
     <div class="portfolio-intro">
       <em>Cada proyecto es único.</em>
-      <p>Navegá por nuestros trabajos y si alguno te gusta, podés ver todo el proceso.</p>
     </div>
   </div>
 
@@ -684,8 +684,9 @@
       <div class="section-header">
         <span class="eyebrow">Quiénes somos</span>
       </div>
-      <div class="nos-num">30</div>
-      <div class="nos-num-label">años en construcción</div>
+      <div class="nos-num-c">
+        <span class="nos-num-grande">30</span> años<br>en construcción
+      </div>
       <p class="nos-intro">Somos una empresa familiar de zona norte. Empezamos hace más de tres décadas y seguimos construyendo con el mismo compromiso:</p>
       <span class="nos-highlight">que cada cliente disfrute su obra.</span>
       <div class="nos-divider"></div>
@@ -820,7 +821,7 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div style="display:flex;align-items:center;gap:10px;"><img src="favicon.png" alt="MO" style="height:32px;width:auto;filter:brightness(0.35);"><span class="footer-brand">Construcciones</span></div>
+  <div style="display:flex;align-items:center;gap:10px;"><img src="favicon.png" alt="MO" style="height:70px;width:auto;filter:brightness(0.35);vertical-align:middle;"><span class="footer-brand">Construcciones</span></div>
   <span class="footer-slogan">"Construimos tranquilidad."</span>
   <span class="footer-zona">Zona Norte · GBA</span>
 </footer>
