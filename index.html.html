@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9MSK4ST0RB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9MSK4ST0RB');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="shortcut icon" href="favicon.ico">
 <title>MO Construcciones · Zona Norte GBA</title>
 <meta name="description" content="Empresa familiar de construcción con 30 años de trayectoria en Zona Norte del GBA. Casas a medida, acompañamiento en cada etapa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,9 +114,9 @@
     position: absolute; inset: 0; z-index: 1;
     background: linear-gradient(
       to top,
-      rgba(18,14,8,0.94) 0%,
-      rgba(18,14,8,0.4) 50%,
-      rgba(18,14,8,0.1) 100%
+      rgba(18,14,8,0.70) 0%,
+      rgba(18,14,8,0.25) 50%,
+      rgba(18,14,8,0.05) 100%
     );
   }
   .hero-badge {
@@ -538,7 +548,7 @@
   <div class="hero-video-wrap" style="position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;">
     <iframe
       src="https://www.youtube.com/embed/eq4PbCkiOoI?autoplay=1&mute=1&loop=1&playlist=eq4PbCkiOoI&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1"
-      style="position:absolute;top:50%;left:50%;width:177.78vh;height:100vh;min-width:100%;min-height:56.25vw;transform:translate(-50%,-50%);border:none;opacity:0.75;"
+      style="position:absolute;top:50%;left:50%;width:177.78vh;height:100vh;min-width:100%;min-height:56.25vw;transform:translate(-50%,-50%);border:none;opacity:0.95;"
       allow="autoplay; encrypted-media"
       allowfullscreen
     ></iframe>
@@ -736,7 +746,7 @@
     </div>
     <div class="reveal">
       <div class="divider-o">o dejanos tus datos</div>
-      <form class="form" onsubmit="enviarFormulario(event)">
+      <form class="form" action="https://formspree.io/f/mppzvyvw" method="POST" onsubmit="enviarFormulario(event)">
         <div class="form-group">
           <label>Soy</label>
           <div class="tipo-btns">
@@ -975,12 +985,29 @@ function selTipo(el) {
 }
 
 // Formulario → WhatsApp
-function enviarFormulario(e) {
+async function enviarFormulario(e) {
   e.preventDefault();
   const f = e.target;
-  const msg = `Hola MO Construcciones! Soy ${f.nombre.value} (${f.tipo.value}). Zona: ${f.zona.value}. Proyecto: ${f.proyecto.value}. ${f.mensaje.value}. Tel: ${f.telefono.value}`;
+
+  // Send to Formspree
+  try {
+    await fetch('https://formspree.io/f/mppzvyvw', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(f)
+    });
+  } catch(err) {
+    console.error('Formspree error:', err);
+  }
+
+  // Also open WhatsApp
+  const msg = `Hola MO Construcciones! Soy ${f.nombre.value} (${f.tipo.value || document.querySelector('.tipo-btn.active').textContent}). Zona: ${f.zona.value}. Proyecto: ${f.proyecto.value}. ${f.mensaje.value}. Tel: ${f.telefono.value}`;
   window.open('https://wa.me/5491133967462?text=' + encodeURIComponent(msg), '_blank');
+
+  // Show confirmation
+  f.innerHTML = '<div style="text-align:center;padding:2rem 1rem;"><i class="ti ti-circle-check" style="font-size:36px;color:#7A6A56;"></i><p style="margin-top:1rem;font-size:15px;color:#4A3E30;font-weight:500;">¡Mensaje enviado!</p><p style="margin-top:0.5rem;font-size:13px;color:#8A7660;">Te contactamos en menos de 24 horas.</p></div>';
 }
+
 
 // Nav scroll
 window.addEventListener('scroll', () => {
