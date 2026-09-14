@@ -49,9 +49,10 @@
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2.5rem; height: 58px;
-    background: transparent;
-    border-bottom: 0.5px solid transparent;
+    padding: 0 2.5rem; height: 68px;
+    background: rgba(18,14,8,0.28);
+    backdrop-filter: blur(6px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
     transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
   }
   .nav.scrolled {
@@ -68,8 +69,13 @@
     transition: color 0.4s;
   }
   .nav.scrolled .nav-brand { color: var(--tierra-oscuro); }
-  .nav-logo { height: 28px; width: auto; display: block; filter: brightness(10); transition: filter 0.4s; }
+  .nav-logo { height: 70px; width: auto; display: block; filter: brightness(10); transition: filter 0.4s; }
   .nav.scrolled .nav-logo { filter: brightness(0.3); }
+  .nav-brand-text {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(240,234,225,0.75); transition: color 0.4s;
+  }
+  .nav.scrolled .nav-brand-text { color: var(--tierra-oscuro); }
   .nav-links { display: flex; gap: 2rem; }
   .nav-links a {
     font-size: 12px; letter-spacing: 1px;
@@ -546,7 +552,7 @@
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-brand"><img src="favicon.png" alt="MO Construcciones" class="nav-logo"></a>
+  <a href="#" class="nav-brand" style="display:flex;align-items:center;gap:10px;"><img src="favicon.png" alt="MO Construcciones" class="nav-logo"><span class="nav-brand-text">Construcciones</span></a>
   <div class="nav-links">
     <a href="#obras">Obras</a>
     <a href="#nosotros">Nosotros</a>
@@ -814,7 +820,7 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-  <span class="footer-brand">M · O &nbsp;Construcciones</span>
+  <div style="display:flex;align-items:center;gap:10px;"><img src="favicon.png" alt="MO" style="height:32px;width:auto;filter:brightness(0.35);"><span class="footer-brand">Construcciones</span></div>
   <span class="footer-slogan">"Construimos tranquilidad."</span>
   <span class="footer-zona">Zona Norte · GBA</span>
 </footer>
