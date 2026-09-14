@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9MSK4ST0RB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9MSK4ST0RB');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<title>MO Construcciones · Zona Norte GBA</title>
+<meta name="description" content="Empresa familiar de construcción con 30 años de trayectoria en Zona Norte del GBA. Casas a medida, acompañamiento en cada etapa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  :root {
+    --tierra-oscuro: #3D3020;
+    --tierra-medio: #7A6A56;
+    --tierra-claro: #9A8470;
+    --tierra-acento: #9A7A55;
+    --crema: #F5F0E8;
+    --crema-oscuro: #EDE8DF;
+    --fondo: #FAFAF8;
+    --texto-principal: #4A3E30;
+    --texto-secundario: #8A7660;
+    --texto-tenue: #9A8470;
+    --borde: rgba(122,106,86,0.18);
+    --borde-medio: rgba(122,106,86,0.28);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--fondo);
+    color: var(--texto-principal);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 58px;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--borde);
+    transition: box-shadow 0.3s;
+  }
+  .nav.scrolled { box-shadow: 0 2px 20px rgba(60,48,32,0.08); }
+  .nav-brand {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; font-weight: 400;
+    letter-spacing: 3.5px; color: var(--tierra-oscuro);
+    text-decoration: none; white-space: nowrap;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 12px; letter-spacing: 1px;
+    color: var(--texto-secundario); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--tierra-medio); }
+  .nav-cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px; letter-spacing: 1px;
+    padding: 7px 18px;
+    border: 0.5px solid var(--tierra-medio);
+    border-radius: 2px;
+    color: var(--tierra-medio);
+    background: transparent; cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--tierra-medio); color: var(--crema); }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100vh; min-height: 580px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+  .hero-video-wrap {
+    position: absolute; inset: 0; z-index: 0;
+    background: #1E1A14;
+  }
+  /* ══ REEMPLAZAR VIDEO ══
+     Subí tu archivo de video a la misma carpeta que este HTML.
+     Luego cambiá "PORTADA M.0.mp4" por el nombre real de tu archivo.
+     Ejemplo: si tu video se llama "portada-drone.mp4", escribí:
+     <video src="portada-drone.mp4" ...>
+  */
+  }
+  .hero-video-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #3D3020 0%, #1E1A14 60%, #0E0C08 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px;
+  }
+  .hero-video-placeholder span {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: rgba(196,168,130,0.25);
+    font-family: 'Jost', sans-serif;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(
+      to top,
+      rgba(18,14,8,0.70) 0%,
+      rgba(18,14,8,0.25) 50%,
+      rgba(18,14,8,0.05) 100%
+    );
+  }
+  .hero-badge {
+    position: absolute; top: 80px; right: 2.5rem; z-index: 3;
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    padding: 6px 12px; border-radius: 2px;
+  }
+  .hero-badge i { font-size: 13px; color: rgba(196,168,130,0.5); }
+  .hero-badge span { font-size: 11px; color: rgba(196,168,130,0.45); letter-spacing: 1px; }
+  .hero-content {
+    position: relative; z-index: 3;
+    padding: 0 2.5rem 3.5rem;
+    width: 100%;
+  }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #B8956A; margin-bottom: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 28px; height: 0.5px; background: #B8956A;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 300; color: #F0EAE1;
+    line-height: 1.1; margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+  }
+  .hero-sub {
+    font-size: 13px; letter-spacing: 1.5px;
+    color: rgba(184,149,106,0.55);
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%); z-index: 3;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .hero-scroll span { font-size: 10px; letter-spacing: 2px; color: rgba(196,168,130,0.3); }
+  .hero-scroll i { font-size: 16px; color: rgba(196,168,130,0.3); }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── SECCIONES ── */
+  .section { padding: 5rem 2.5rem; }
+  .section-alt { background: var(--crema); }
+
+  .section-header { margin-bottom: 2.5rem; }
+  .eyebrow {
+    display: block;
+    font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
+    color: var(--texto-tenue); margin-bottom: 0.9rem;
+  }
+  .sec-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 400;
+    color: var(--tierra-oscuro); line-height: 1.2;
+  }
+
+  /* ── PORTFOLIO ── */
+  .portfolio-intro { margin-top: 0.75rem; }
+  .portfolio-intro em { font-size: 14px; color: #6B5840; font-style: italic; display: block; line-height: 1.5; }
+  .portfolio-intro p { font-size: 14px; color: var(--texto-secundario); line-height: 1.6; margin-top: 3px; }
+
+  .obras-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 2rem;
+  }
+  .obra-card {
+    position: relative; overflow: hidden;
+    border-radius: 2px; cursor: pointer;
+    background: #3D3020;
+  }
+  .obra-card:first-child { grid-column: span 2; grid-row: span 2; }
+  .obra-card:first-child .obra-img { height: 420px; }
+  .obra-card:not(:first-child) .obra-img { height: 205px; }
+
+  .obra-img {
+    width: 100%; display: block;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  /* Placeholders de color hasta que carguen las fotos reales */
+  .obra-img-placeholder {
+    width: 100%;
+    background: var(--ph-color, #5C5040);
+    transition: transform 0.6s ease;
+  }
+  .obra-card:first-child .obra-img-placeholder { height: 420px; }
+  .obra-card:not(:first-child) .obra-img-placeholder { height: 205px; }
+
+  .obra-card:hover .obra-img,
+  .obra-card:hover .obra-img-placeholder { transform: scale(1.04); }
+
+  .obra-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,11,7,0.85) 0%, transparent 55%);
+    padding: 1.25rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    transition: background 0.3s;
+  }
+  .obra-card:hover .obra-overlay {
+    background: linear-gradient(to top, rgba(15,11,7,0.9) 0%, rgba(15,11,7,0.2) 100%);
+  }
+  .obra-tag {
+    position: absolute; top: 12px; left: 12px;
+    font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+    background: rgba(196,168,130,0.15);
+    border: 0.5px solid rgba(196,168,130,0.3);
+    color: #C4A882; padding: 4px 10px; border-radius: 2px;
+  }
+  .obra-nombre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 400; color: #F0EAE1;
+    margin-bottom: 2px;
+  }
+  .obra-card:first-child .obra-nombre { font-size: 22px; }
+  .obra-meta { font-size: 11px; color: rgba(196,168,130,0.65); letter-spacing: 0.5px; }
+  .obra-ver {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; letter-spacing: 1px; color: rgba(196,168,130,0.5);
+    margin-top: 6px; opacity: 0; transition: opacity 0.3s;
+    text-transform: uppercase;
+  }
+  .obra-card:hover .obra-ver { opacity: 1; }
+
+  .ver-todo {
+    display: inline-flex; align-items: center; gap: 7px;
+    margin-top: 2rem; font-size: 13px; letter-spacing: 0.5px;
+    color: var(--tierra-medio); text-decoration: none;
+    border-bottom: 0.5px solid var(--borde-medio);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .ver-todo:hover { color: var(--tierra-oscuro); }
+
+  /* ── NOSOTROS ── */
+  .nosotros-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .nos-foto {
+    height: 380px; border-radius: 2px;
+    position: relative; overflow: hidden;
+    background: #5C5040;
+  }
+  /* ══ REEMPLAZAR FOTO NOSOTROS ══
+     Cambiá el background por: background-image: url('tu-foto.jpg');
+     y agregá: background-size: cover; background-position: center;
+  */
+  .nos-foto-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(15,11,7,0.55); padding: 10px 16px;
+    font-size: 11px; color: rgba(240,234,225,0.65); letter-spacing: 0.5px;
+  }
+  .nos-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px; font-weight: 300; color: var(--tierra-acento);
+    line-height: 1; margin-top: 0.25rem;
+  }
+  .nos-num-label {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--tierra-medio); margin-bottom: 1.5rem; margin-top: 4px;
+  }
+  .nos-intro { font-size: 15px; color: #6B5840; line-height: 1.75; margin-bottom: 0.5rem; }
+  .nos-highlight {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 500; font-style: italic;
+    color: var(--tierra-oscuro); line-height: 1.4;
+    display: block; margin-bottom: 1rem;
+  }
+  .nos-divider { height: 0.5px; background: var(--borde-medio); margin-bottom: 1rem; }
+  .nos-body { font-size: 14px; color: var(--texto-secundario); line-height: 1.75; }
+  .nos-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+  .pill {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px;
+    border: 0.5px solid var(--borde-medio);
+    font-size: 12px; color: var(--tierra-medio);
+    letter-spacing: 0.3px;
+  }
+
+  /* ── TESTIMONIOS ── */
+  .t-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+  .t-card {
+    padding: 1.5rem;
+    border: 0.5px solid var(--borde);
+    border-radius: 2px;
+    background: var(--fondo);
+  }
+  .t-dots { display: flex; gap: 4px; margin-bottom: 1rem; }
+  .t-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--tierra-acento); }
+  .t-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; font-style: italic; font-weight: 400;
+    color: #5C4A38; line-height: 1.6; margin-bottom: 1rem;
+  }
+  .t-nombre { font-size: 12px; font-weight: 500; color: var(--tierra-oscuro); letter-spacing: 0.3px; }
+  .t-zona { font-size: 11px; color: var(--texto-tenue); margin-top: 2px; }
+  .t-boca {
+    font-size: 13px; color: var(--texto-secundario); font-style: italic;
+    padding-top: 1.25rem; border-top: 0.5px solid var(--borde);
+  }
+  .t-boca strong { color: var(--tierra-oscuro); font-style: normal; font-weight: 500; }
+
+  /* ── CONTACTO ── */
+  .servilleta {
+    border-left: 2px solid var(--tierra-acento);
+    padding: 0.75rem 1.5rem; margin-bottom: 3rem;
+    max-width: 560px;
+  }
+  .servilleta p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-style: italic; color: var(--tierra-oscuro);
+    line-height: 1.5;
+  }
+  .servilleta span {
+    display: block; margin-top: 6px;
+    font-size: 13px; color: var(--texto-secundario);
+  }
+  .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+
+  .contact-items { display: flex; flex-direction: column; gap: 10px; }
+  .contact-title { font-size: 14px; font-weight: 500; color: var(--tierra-oscuro); margin-bottom: 0.5rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 16px;
+    background: var(--fondo); border: 0.5px solid var(--borde);
+    border-radius: 2px; text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .contact-item:hover { border-color: var(--tierra-medio); box-shadow: 0 2px 12px rgba(122,106,86,0.1); }
+  .ci-icon { font-size: 20px; color: var(--tierra-medio); flex-shrink: 0; }
+  .ci-label { font-size: 11px; color: var(--texto-tenue); letter-spacing: 0.3px; }
+  .ci-value { font-size: 13px; font-weight: 500; color: var(--tierra-oscuro); margin-top: 1px; }
+  .ci-arrow { margin-left: auto; font-size: 15px; color: var(--borde-medio); }
+
+  .divider-o {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 12px; color: var(--texto-tenue); margin: 1.5rem 0 1rem;
+  }
+  .divider-o::before, .divider-o::after { content: ''; flex: 1; height: 0.5px; background: var(--borde); }
+
+  /* FORM */
+  .form { display: flex; flex-direction: column; gap: 12px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group label { font-size: 11px; letter-spacing: 0.5px; color: var(--texto-tenue); }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; color: var(--tierra-oscuro);
+    background: var(--fondo);
+    border: 0.5px solid var(--borde-medio);
+    border-radius: 2px; padding: 10px 14px;
+    width: 100%; transition: border-color 0.2s;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none; border-color: var(--tierra-medio);
+  }
+  .form-group textarea { height: 80px; resize: none; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tipo-btns { display: flex; gap: 8px; }
+  .tipo-btn {
+    flex: 1; padding: 9px;
+    font-family: 'Jost', sans-serif; font-size: 12px;
+    cursor: pointer; border: 0.5px solid var(--borde-medio);
+    border-radius: 2px; background: var(--fondo);
+    color: var(--texto-secundario); text-align: center;
+    transition: all 0.2s;
+  }
+  .tipo-btn.active { border-color: var(--tierra-medio); color: var(--tierra-medio); background: rgba(122,106,86,0.05); }
+  .tipo-btn:hover:not(.active) { border-color: var(--tierra-claro); }
+  .form-submit {
+    width: 100%; padding: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; font-weight: 500; letter-spacing: 1px;
+    background: var(--tierra-medio); color: var(--crema);
+    border: none; border-radius: 2px; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--tierra-oscuro); }
+  .form-nota { font-size: 11px; color: var(--texto-tenue); text-align: center; letter-spacing: 0.3px; }
+
+  /* ── MODAL DE OBRA ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(15,11,7,0.85); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--fondo); border-radius: 2px;
+    width: 100%; max-width: 800px; max-height: 90vh;
+    overflow-y: auto; position: relative;
+  }
+  .modal-header {
+    padding: 1.5rem 1.75rem 1rem;
+    border-bottom: 0.5px solid var(--borde);
+    display: flex; align-items: flex-start; justify-content: space-between;
+  }
+  .modal-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400; color: var(--tierra-oscuro);
+  }
+  .modal-meta { font-size: 12px; color: var(--texto-tenue); margin-top: 3px; letter-spacing: 0.3px; }
+  .modal-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 22px; color: var(--texto-tenue); padding: 4px;
+    transition: color 0.2s; flex-shrink: 0;
+  }
+  .modal-close:hover { color: var(--tierra-oscuro); }
+  .modal-body { padding: 1.5rem 1.75rem; }
+
+  /* Galería del modal */
+  .galeria-principal {
+    width: 100%; height: 320px;
+    background: #3D3020; border-radius: 2px;
+    overflow: hidden; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .galeria-principal img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .galeria-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .galeria-placeholder i { font-size: 32px; color: rgba(196,168,130,0.2); }
+  .galeria-placeholder span { font-size: 11px; letter-spacing: 2px; color: rgba(196,168,130,0.2); text-transform: uppercase; }
+
+  /* Video dentro del modal */
+  .modal-video {
+    width: 100%; border-radius: 2px; margin-bottom: 10px;
+    background: #2A2218; display: none;
+  }
+  .modal-video video { width: 100%; border-radius: 2px; display: block; }
+
+  .galeria-thumbs {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem;
+  }
+  .thumb {
+    width: 64px; height: 48px; border-radius: 2px;
+    overflow: hidden; cursor: pointer;
+    border: 1.5px solid transparent; transition: border-color 0.2s;
+    background: #5C5040; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .thumb.active { border-color: var(--tierra-medio); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb-placeholder { font-size: 16px; color: rgba(196,168,130,0.3); }
+
+  /* Instrucciones de cómo agregar fotos */
+  .modal-instrucciones {
+    background: var(--crema); border: 0.5px solid var(--borde);
+    border-radius: 2px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+    font-size: 12px; color: var(--texto-secundario); line-height: 1.7;
+  }
+  .modal-instrucciones strong { color: var(--tierra-oscuro); }
+  .modal-instrucciones code {
+    background: rgba(122,106,86,0.1); padding: 1px 5px;
+    border-radius: 2px; font-size: 11px; color: var(--tierra-medio);
+  }
+
+  .modal-ficha { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .ficha-item { display: flex; flex-direction: column; gap: 2px; }
+  .ficha-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-tenue); }
+  .ficha-valor { font-size: 14px; font-weight: 500; color: var(--tierra-oscuro); }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 1.5rem 2.5rem;
+    border-top: 0.5px solid var(--borde);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--fondo);
+  }
+  .footer-brand {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #5C5040; white-space: nowrap;
+  }
+  .footer-slogan { font-size: 12px; color: var(--texto-secundario); font-style: italic; }
+  .footer-zona { font-size: 12px; color: var(--texto-tenue); white-space: nowrap; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .section { padding: 3.5rem 1.25rem; }
+    .obras-grid { grid-template-columns: 1fr 1fr; }
+    .obra-card:first-child { grid-column: span 2; }
+    .obra-card:first-child .obra-img-placeholder { height: 280px; }
+    .obra-card:not(:first-child) .obra-img-placeholder { height: 160px; }
+    .nosotros-grid { grid-template-columns: 1fr; }
+    .nos-foto { height: 260px; }
+    .t-grid { grid-template-columns: 1fr; }
+    .contacto-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand">M · O &nbsp;Construcciones</a>
+  <div class="nav-links">
+    <a href="#obras">Obras</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#testimonios">Testimonios</a>
+  </div>
+  <a href="#contacto" class="nav-cta">Contactanos</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-video-wrap" style="position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;">
+    <iframe
+      src="https://www.youtube.com/embed/eq4PbCkiOoI?autoplay=1&mute=1&loop=1&playlist=eq4PbCkiOoI&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1"
+      style="position:absolute;top:50%;left:50%;width:177.78vh;height:100vh;min-width:100%;min-height:56.25vw;transform:translate(-50%,-50%);border:none;opacity:0.95;"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-badge">
+    <i class="ti ti-drone"></i>
+    <span>Vista aérea · Zona Norte</span>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Empresa familiar · 30 años</p>
+    <h1 class="hero-title">Construimos tranquilidad.</h1>
+    <p class="hero-sub">Acompañamiento en cada etapa de tu obra</p>
+  </div>
+  <div class="hero-scroll">
+    <span>Ver obras</span>
+    <i class="ti ti-chevron-down"></i>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section" id="obras">
+  <div class="section-header reveal">
+    <span class="eyebrow">Portfolio</span>
+    <h2 class="sec-title">Nuestras obras</h2>
+    <div class="portfolio-intro">
+      <em>Cada proyecto es único.</em>
+      <p>Navegá por nuestros trabajos y si alguno te gusta, podés ver todo el proceso.</p>
+    </div>
+  </div>
+
+  <div class="obras-grid">
+
+    <!-- OBRA 1 — Casa TT -->
+    <div class="obra-card reveal" onclick="abrirObra('tt')">
+      <!--
+        CÓMO AGREGAR FOTO DE PORTADA A ESTA OBRA:
+        Reemplazá la línea obra-img-placeholder por:
+        <img class="obra-img" src="fotos/casa-tt-portada.jpg" alt="Casa TT">
+      -->
+      <div class="obra-img-placeholder" style="--ph-color:#5C5040;"></div>
+      <span class="obra-tag">Destacada</span>
+      <div class="obra-overlay">
+        <p class="obra-nombre">Casa TT</p>
+        <p class="obra-meta">Pilar · 2025 · Casa nueva</p>
+        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <!-- OBRA 2 — Casa El Cebú -->
+    <div class="obra-card reveal" onclick="abrirObra('cebu')">
+      <div class="obra-img-placeholder" style="--ph-color:#6B5B46;"></div>
+      <div class="obra-overlay">
+        <p class="obra-nombre">Casa El Cebú</p>
+        <p class="obra-meta">Pilar · 2026 · Casa nueva</p>
+        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <!-- OBRA 3 — Casa SJ -->
+    <div class="obra-card reveal" onclick="abrirObra('sj')">
+      <div class="obra-img-placeholder" style="--ph-color:#7A6A56;"></div>
+      <div class="obra-overlay">
+        <p class="obra-nombre">Casa SJ</p>
+        <p class="obra-meta">Pilar · 2026 · Casa nueva</p>
+        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <!-- OBRA 4 — Casa BC -->
+    <div class="obra-card reveal" onclick="abrirObra('bc')">
+      <div class="obra-img-placeholder" style="--ph-color:#8B7355;"></div>
+      <div class="obra-overlay">
+        <p class="obra-nombre">Casa BC</p>
+        <p class="obra-meta">Pilar · 2026 · Casa nueva</p>
+        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <!-- OBRA 5 — Casa JP -->
+    <div class="obra-card reveal" onclick="abrirObra('jp')">
+      <div class="obra-img-placeholder" style="--ph-color:#6B5040;"></div>
+      <div class="obra-overlay">
+        <p class="obra-nombre">Casa JP</p>
+        <p class="obra-meta">Pilar · 2026 · Casa nueva</p>
+        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <!-- OBRA 6 — Ampliación CM -->
+    <div class="obra-card reveal" onclick="abrirObra('cm')">
+      <div class="obra-img-placeholder" style="--ph-color:#7A6550;"></div>
+      <div class="obra-overlay">
+        <p class="obra-nombre">Ampliación CM</p>
+        <p class="obra-meta">Pilar · 2025 · Ampliación</p>
+        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="section section-alt" id="nosotros">
+  <div class="nosotros-grid">
+    <div class="nos-foto reveal">
+      <!--
+        CÓMO AGREGAR FOTO DE LA SECCIÓN NOSOTROS:
+        Reemplazá el style de nos-foto con:
+        style="background-image:url('fotos/nosotros.jpg'); background-size:cover; background-position:center;"
+      -->
+      <div class="nos-foto-label">Vista aérea · Casa en proceso · Pilar, 2024</div>
+    </div>
+    <div class="reveal">
+      <div class="section-header">
+        <span class="eyebrow">Quiénes somos</span>
+      </div>
+      <div class="nos-num">30</div>
+      <div class="nos-num-label">años en construcción</div>
+      <p class="nos-intro">Somos una empresa familiar de zona norte. Empezamos hace más de tres décadas y seguimos construyendo con el mismo compromiso:</p>
+      <span class="nos-highlight">que cada cliente disfrute su obra.</span>
+      <div class="nos-divider"></div>
+      <p class="nos-body">Sabemos que invertir en tu casa es una decisión enorme. Por eso trabajamos para que el proceso sea tranquilo, transparente y tuyo.</p>
+      <div class="nos-pills">
+        <span class="pill"><i class="ti ti-home-heart"></i> Empresa familiar</span>
+        <span class="pill"><i class="ti ti-shield-check"></i> 30 años de trayectoria</span>
+        <span class="pill"><i class="ti ti-map-pin"></i> Zona Norte GBA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="section" id="testimonios">
+  <div class="section-header reveal">
+    <span class="eyebrow">Testimonios</span>
+    <h2 class="sec-title" style="font-size:26px;">Lo que dicen nuestros clientes</h2>
+  </div>
+  <div class="t-grid">
+    <div class="t-card reveal">
+      <div class="t-dots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
+      <p class="t-text">"Nunca pensé que construir iba a ser tan tranquilo. Estuvieron presentes en cada decisión."</p>
+      <p class="t-nombre">Familia García</p>
+      <p class="t-zona">Nordelta · Casa nueva</p>
+    </div>
+    <div class="t-card reveal">
+      <div class="t-dots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
+      <p class="t-text">"Los recomendé a tres amigos. La relación con ellos hace que sea una experiencia única."</p>
+      <p class="t-nombre">Marcelo y Valeria</p>
+      <p class="t-zona">Pilar · Ampliación</p>
+    </div>
+    <div class="t-card reveal">
+      <div class="t-dots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
+      <p class="t-text">"La obra terminó siendo como la soñamos. El equipo se convirtió casi en parte de la familia."</p>
+      <p class="t-nombre">Sofía y Rodrigo</p>
+      <p class="t-zona">Tigre · Casa nueva</p>
+    </div>
+  </div>
+  <p class="t-boca reveal"><strong>Toda nuestra clientela es de boca en boca.</strong> Eso lo dice todo.</p>
+</section>
+
+<!-- CONTACTO -->
+<section class="section section-alt" id="contacto">
+  <div class="section-header reveal">
+    <span class="eyebrow">Contacto</span>
+    <h2 class="sec-title">¿Tenés un proyecto?</h2>
+  </div>
+  <div class="servilleta reveal">
+    <p>"Arrancamos obras desde un croquis en una servilleta."</p>
+    <span>No hace falta tener todo definido para empezar a hablar.</span>
+  </div>
+  <div class="contacto-grid">
+    <div class="reveal">
+      <p class="contact-title">Escribinos directo</p>
+      <div class="contact-items">
+        <a href="https://wa.me/5491133967462" target="_blank" class="contact-item">
+          <i class="ti ti-brand-whatsapp ci-icon"></i>
+          <div><p class="ci-label">WhatsApp</p><p class="ci-value">+54 11 3396-7462</p></div>
+          <i class="ti ti-arrow-up-right ci-arrow"></i>
+        </a>
+        <a href="mailto:juanmengelle@gmail.com" class="contact-item">
+          <i class="ti ti-mail ci-icon"></i>
+          <div><p class="ci-label">Email</p><p class="ci-value">juanmengelle@gmail.com</p></div>
+          <i class="ti ti-arrow-up-right ci-arrow"></i>
+        </a>
+        <div class="contact-item">
+          <i class="ti ti-clock ci-icon"></i>
+          <div><p class="ci-label">Horario</p><p class="ci-value">Lunes a viernes · 8 a 18hs</p></div>
+        </div>
+        <div class="contact-item">
+          <i class="ti ti-map-pin ci-icon"></i>
+          <div><p class="ci-label">Zona de trabajo</p><p class="ci-value">Norte del GBA</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="divider-o">o dejanos tus datos</div>
+      <form class="form" action="https://formspree.io/f/mppzvyvw" method="POST" onsubmit="enviarFormulario(event)">
+        <div class="form-group">
+          <label>Soy</label>
+          <div class="tipo-btns">
+            <div class="tipo-btn active" onclick="selTipo(this)">Cliente particular</div>
+            <div class="tipo-btn" onclick="selTipo(this)">Arquitecto / Estudio</div>
+          </div>
+          <input type="hidden" name="tipo" id="tipo-input" value="Cliente particular">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="tel" name="telefono" placeholder="+54 11..." required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Zona de la obra</label>
+            <select name="zona">
+              <option>Pilar</option>
+              <option>Manzanares</option>
+              <option>Capilla del Señor</option>
+              <option>San Antonio de Areco</option>
+              <option>Open Door</option>
+              <option>Tortuguitas</option>
+              <option>Luján</option>
+              <option>Exaltación de la Cruz</option>
+              <option>Otra zona norte</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tipo de proyecto</label>
+            <select name="proyecto">
+              <option>Casa nueva</option>
+              <option>Ampliación</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Contanos brevemente</label>
+          <textarea name="mensaje" placeholder="Terreno, m² aproximados, si ya tenés plano o no..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Enviar consulta</button>
+        <p class="form-nota"><i class="ti ti-clock"></i> Te respondemos en menos de 24 horas</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-brand">M · O &nbsp;Construcciones</span>
+  <span class="footer-slogan">"Construimos tranquilidad."</span>
+  <span class="footer-zona">Zona Norte · GBA</span>
+</footer>
+
+<!-- ══ MODALES DE OBRAS ══ -->
+<!--
+  CÓMO AGREGAR FOTOS Y VIDEO A CADA OBRA:
+
+  1. Creá una carpeta llamada "fotos" junto al HTML.
+  2. Para fotos: agregá <img src="fotos/casa-tt-1.jpg"> dentro de .galeria-thumbs
+     y reemplazá el placeholder de .galeria-principal con un <img>.
+  3. Para video: agregá el src al <video> dentro de .modal-video
+     y cambiá style="display:none" por style="display:block".
+-->
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-titulo" id="modal-titulo">Casa TT</h3>
+        <p class="modal-meta" id="modal-meta">Pilar · 2025 · Casa nueva</p>
+      </div>
+      <button class="modal-close" onclick="cerrarModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Video (oculto hasta que lo agregues) -->
+      <div class="modal-video" id="modal-video">
+        <video controls>
+          <source id="modal-video-src" src="" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Foto principal -->
+      <div class="galeria-principal" id="galeria-principal">
+        <div class="galeria-placeholder">
+          <i class="ti ti-photo"></i>
+          <span>Fotos de la obra</span>
+        </div>
+      </div>
+
+      <!-- Miniaturas -->
+      <div class="galeria-thumbs" id="galeria-thumbs"></div>
+
+      <!-- Instrucciones inline -->
+      <div class="modal-instrucciones">
+        <strong>Para agregar fotos a esta obra:</strong><br>
+        Abrí el HTML, buscá el objeto de esta obra en <code>const obras</code> y completá el array <code>fotos</code> con las rutas de tus imágenes.<br>
+        Ejemplo: <code>fotos: ["fotos/casa-tt-1.jpg", "fotos/casa-tt-2.jpg"]</code><br>
+        Para video: completá el campo <code>video</code> con la ruta del archivo.
+      </div>
+
+      <!-- Ficha técnica -->
+      <div class="modal-ficha" id="modal-ficha"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// DATOS DE OBRAS
+// Completá fotos[] con rutas reales cuando las tengas
+// Ejemplo: fotos: ["fotos/casa-tt-1.jpg", "fotos/casa-tt-2.jpg"]
+// Para video: video: "videos/casa-tt.mp4"
+// ══════════════════════════════════════════════════
+const obras = {
+  tt: {
+    nombre: "Casa TT",
+    meta: "Pilar · 2025 · Casa nueva",
+    ficha: { Año: "2025", Ubicación: "Pilar", Tipo: "Casa nueva" },
+    fotos: [], // agregar rutas acá
+    video: ""  // agregar ruta al video acá
+  },
+  cebu: {
+    nombre: "Casa El Cebú",
+    meta: "Pilar · 2026 · Casa nueva",
+    ficha: { Año: "2026", Ubicación: "Pilar", Tipo: "Casa nueva" },
+    fotos: [],
+    video: ""
+  },
+  sj: {
+    nombre: "Casa SJ",
+    meta: "Pilar · 2026 · Casa nueva",
+    ficha: { Año: "2026", Ubicación: "Pilar", Tipo: "Casa nueva" },
+    fotos: [],
+    video: ""
+  },
+  bc: {
+    nombre: "Casa BC",
+    meta: "Pilar · 2026 · Casa nueva",
+    ficha: { Año: "2026", Ubicación: "Pilar", Tipo: "Casa nueva" },
+    fotos: [],
+    video: ""
+  },
+  jp: {
+    nombre: "Casa JP",
+    meta: "Pilar · 2026 · Casa nueva",
+    ficha: { Año: "2026", Ubicación: "Pilar", Tipo: "Casa nueva" },
+    fotos: [],
+    video: ""
+  },
+  cm: {
+    nombre: "Ampliación CM",
+    meta: "Pilar · 2025 · Ampliación",
+    ficha: { Año: "2025", Ubicación: "Pilar", Tipo: "Ampliación" },
+    fotos: [],
+    video: ""
+  }
+};
+
+function abrirObra(id) {
+  const o = obras[id];
+  document.getElementById('modal-titulo').textContent = o.nombre;
+  document.getElementById('modal-meta').textContent = o.meta;
+
+  // Fotos
+  const gp = document.getElementById('galeria-principal');
+  const gt = document.getElementById('galeria-thumbs');
+  gp.innerHTML = '';
+  gt.innerHTML = '';
+
+  if (o.fotos && o.fotos.length > 0) {
+    const img = document.createElement('img');
+    img.src = o.fotos[0]; img.alt = o.nombre;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+    gp.appendChild(img);
+    o.fotos.forEach((f, i) => {
+      const t = document.createElement('div');
+      t.className = 'thumb' + (i === 0 ? ' active' : '');
+      const ti = document.createElement('img');
+      ti.src = f; ti.alt = o.nombre + ' ' + (i+1);
+      t.appendChild(ti);
+      t.onclick = () => {
+        gp.innerHTML = '';
+        const ni = document.createElement('img');
+        ni.src = f; ni.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+        gp.appendChild(ni);
+        gt.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+      };
+      gt.appendChild(t);
+    });
+  } else {
+    gp.innerHTML = '<div class="galeria-placeholder"><i class="ti ti-photo"></i><span>Fotos de la obra</span></div>';
+  }
+
+  // Video
+  const mv = document.getElementById('modal-video');
+  if (o.video) {
+    document.getElementById('modal-video-src').src = o.video;
+    mv.style.display = 'block';
+  } else {
+    mv.style.display = 'none';
+  }
+
+  // Ficha
+  const mf = document.getElementById('modal-ficha');
+  mf.innerHTML = Object.entries(o.ficha).map(([k,v]) =>
+    `<div class="ficha-item"><span class="ficha-label">${k}</span><span class="ficha-valor">${v}</span></div>`
+  ).join('');
+
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) cerrarModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
+
+// Tipo de cliente
+function selTipo(el) {
+  el.closest('.tipo-btns').querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tipo-input').value = el.textContent;
+}
+
+// Formulario → WhatsApp
+async function enviarFormulario(e) {
+  e.preventDefault();
+  const f = e.target;
+
+  // Send to Formspree
+  try {
+    await fetch('https://formspree.io/f/mppzvyvw', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(f)
+    });
+  } catch(err) {
+    console.error('Formspree error:', err);
+  }
+
+  // Also open WhatsApp
+  const msg = `Hola MO Construcciones! Soy ${f.nombre.value} (${f.tipo.value || document.querySelector('.tipo-btn.active').textContent}). Zona: ${f.zona.value}. Proyecto: ${f.proyecto.value}. ${f.mensaje.value}. Tel: ${f.telefono.value}`;
+  window.open('https://wa.me/5491133967462?text=' + encodeURIComponent(msg), '_blank');
+
+  // Show confirmation
+  f.innerHTML = '<div style="text-align:center;padding:2rem 1rem;"><i class="ti ti-circle-check" style="font-size:36px;color:#7A6A56;"></i><p style="margin-top:1rem;font-size:15px;color:#4A3E30;font-weight:500;">¡Mensaje enviado!</p><p style="margin-top:0.5rem;font-size:13px;color:#8A7660;">Te contactamos en menos de 24 horas.</p></div>';
+}
+
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
