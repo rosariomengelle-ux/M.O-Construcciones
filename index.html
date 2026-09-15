@@ -287,43 +287,7 @@
   .ver-todo:hover { color: var(--tierra-oscuro); }
 
   /* ── NOSOTROS ── */
-  .nosotros-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 4rem; align-items: center;
-  }
-  .nos-foto {
-    height: 380px; border-radius: 2px;
-    position: relative; overflow: hidden;
-    background: #5C5040;
-  }
-  /* ══ REEMPLAZAR FOTO NOSOTROS ══
-     Cambiá el background por: background-image: url('tu-foto.jpg');
-     y agregá: background-size: cover; background-position: center;
-  */
-  .nos-foto-label {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: rgba(15,11,7,0.55); padding: 10px 16px;
-    font-size: 11px; color: rgba(240,234,225,0.65); letter-spacing: 0.5px;
-  }
-  .nos-num-c {
-    font-family: 'Jost', sans-serif;
-    font-size: 13px; font-weight: 400; color: var(--tierra-oscuro);
-    letter-spacing: 1px; line-height: 1.6;
-    margin-bottom: 1.5rem; margin-top: 0.25rem;
-  }
-  .nos-num-grande {
-    font-size: 32px; font-weight: 300; color: var(--tierra-acento);
-    display: inline;
-  }
-  .nos-intro { font-size: 15px; color: #6B5840; line-height: 1.75; margin-bottom: 0.5rem; }
-  .nos-highlight {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px; font-weight: 500; font-style: italic;
-    color: var(--tierra-oscuro); line-height: 1.4;
-    display: block; margin-bottom: 1rem;
-  }
-  .nos-divider { height: 0.5px; background: var(--borde-medio); margin-bottom: 1rem; }
-  .nos-body { font-size: 14px; color: var(--texto-secundario); line-height: 1.75; }
+
   .nos-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
   .pill {
     display: flex; align-items: center; gap: 6px;
@@ -553,6 +517,67 @@
   .back-top:hover { background: var(--tierra-oscuro); }
   .back-top i { font-size: 18px; color: #F5F0E8; }
 
+  /* ── NOSOTROS REDISEÑADO ── */
+  .nos-section {
+    position: relative; min-height: 520px; overflow: hidden;
+  }
+  .nos-bg-placeholder {
+    position: absolute; inset: 0; z-index: 0;
+    background: repeating-linear-gradient(160deg, #7A6A56 0px, #4A3828 40px, #6B5840 80px);
+  }
+  .nos-bg {
+    position: absolute; inset: 0; z-index: 0;
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .nos-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(
+      to right,
+      rgba(20,15,8,0.05) 0%,
+      rgba(20,15,8,0.25) 35%,
+      rgba(20,15,8,0.65) 60%,
+      rgba(20,15,8,0.78) 100%
+    );
+  }
+  .nos-contenido {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 520px; align-items: center;
+  }
+  .nos-lado-izq { min-height: 520px; }
+  .nos-lado-der {
+    padding: 4rem 3rem 4rem 2rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .nos-stat {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px; font-weight: 400;
+    color: rgba(240,234,225,0.7); letter-spacing: 0.5px;
+    margin-bottom: 2rem; margin-top: 1.5rem;
+    display: flex; align-items: baseline; gap: 8px;
+    border-left: 2px solid rgba(196,168,130,0.5);
+    padding-left: 14px;
+  }
+  .nos-stat-num {
+    font-size: 36px; font-weight: 300;
+    color: #C4A882; line-height: 1;
+  }
+  .nos-texto-intro {
+    font-size: 14px; color: rgba(240,234,225,0.65);
+    line-height: 1.75; margin-bottom: 0.5rem;
+  }
+  .nos-texto-dest {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; font-style: italic; font-weight: 300;
+    color: #F0EAE1; line-height: 1.4;
+    margin-bottom: 1.5rem; display: block;
+  }
+  .nos-div { height: 0.5px; background: rgba(196,168,130,0.2); margin-bottom: 1.5rem; }
+  .nos-texto-sec {
+    font-size: 13px; color: rgba(240,234,225,0.5);
+    line-height: 1.75; margin-bottom: 2rem;
+  }
+
   /* ── SCROLL REVEAL ── */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -694,31 +719,32 @@
 </section>
 
 <!-- NOSOTROS -->
-<section class="section section-alt" id="nosotros">
-  <div class="nosotros-grid">
-    <div class="nos-foto reveal">
-      <!--
-        CÓMO AGREGAR FOTO DE LA SECCIÓN NOSOTROS:
-        Reemplazá el style de nos-foto con:
-        style="background-image:url('fotos/nosotros.jpg'); background-size:cover; background-position:center;"
-      -->
-      <div class="nos-foto-label">Vista aérea · Casa en proceso · Pilar, 2024</div>
-    </div>
-    <div class="reveal">
-      <div class="section-header">
-        <span class="eyebrow">Quiénes somos</span>
+<section class="nos-section" id="nosotros">
+  <!--
+    FOTO/VIDEO DE FONDO NOSOTROS:
+    Reemplazá la línea nos-bg por:
+    <img class="nos-bg" src="fotos/nosotros.jpg" alt="MO Construcciones">
+    O para video:
+    <video class="nos-bg" autoplay muted loop playsinline src="videos/nosotros.mp4"></video>
+  -->
+  <div class="nos-bg-placeholder"></div>
+  <div class="nos-overlay"></div>
+  <div class="nos-contenido reveal">
+    <div class="nos-lado-izq"></div>
+    <div class="nos-lado-der">
+      <span class="eyebrow" style="color:rgba(196,168,130,0.55);">Quiénes somos</span>
+      <div class="nos-stat">
+        <span class="nos-stat-num">30</span>
+        años en construcción
       </div>
-      <div class="nos-num-c">
-        <span class="nos-num-grande">30</span> años<br>en construcción
-      </div>
-      <p class="nos-intro">Somos una empresa familiar de zona norte. Empezamos hace más de tres décadas y seguimos construyendo con el mismo compromiso:</p>
-      <span class="nos-highlight">que cada cliente disfrute su obra.</span>
-      <div class="nos-divider"></div>
-      <p class="nos-body">Sabemos que invertir en tu casa es una decisión enorme. Por eso trabajamos para que el proceso sea tranquilo, transparente y tuyo.</p>
+      <p class="nos-texto-intro">Somos una empresa familiar de zona norte. Empezamos hace más de tres décadas y seguimos construyendo con el mismo compromiso:</p>
+      <span class="nos-texto-dest">que cada cliente disfrute su obra.</span>
+      <div class="nos-div"></div>
+      <p class="nos-texto-sec">Sabemos que invertir en tu casa es una decisión enorme. Por eso trabajamos para que el proceso sea tranquilo, transparente y tuyo.</p>
       <div class="nos-pills">
-        <span class="pill"><i class="ti ti-home-heart"></i> Empresa familiar</span>
-        <span class="pill"><i class="ti ti-shield-check"></i> 30 años de trayectoria</span>
-        <span class="pill"><i class="ti ti-map-pin"></i> Zona Norte GBA</span>
+        <span class="pill" style="border-color:rgba(196,168,130,0.25);color:rgba(196,168,130,0.7);background:rgba(20,15,8,0.2);"><i class="ti ti-home-heart"></i> Empresa familiar</span>
+        <span class="pill" style="border-color:rgba(196,168,130,0.25);color:rgba(196,168,130,0.7);background:rgba(20,15,8,0.2);"><i class="ti ti-shield-check"></i> 30 años de trayectoria</span>
+        <span class="pill" style="border-color:rgba(196,168,130,0.25);color:rgba(196,168,130,0.7);background:rgba(20,15,8,0.2);"><i class="ti ti-map-pin"></i> Zona Norte GBA</span>
       </div>
     </div>
   </div>
@@ -847,7 +873,13 @@
 <footer class="footer">
   <div style="display:flex;align-items:center;gap:10px;"><img src="favicon.png" alt="MO" style="height:70px;width:auto;filter:brightness(0.35);vertical-align:middle;"><span class="footer-brand">Construcciones</span></div>
   <span class="footer-slogan">"Construimos tranquilidad."</span>
-  <span class="footer-zona">Zona Norte · GBA</span>
+  <div style="display:flex;align-items:center;gap:1.25rem;">
+    <span class="footer-zona">Zona Norte · GBA</span>
+    <a href="https://www.instagram.com/m.o_construcciones" target="_blank" style="display:flex;align-items:center;gap:6px;color:var(--texto-tenue);text-decoration:none;font-size:12px;letter-spacing:0.5px;transition:color 0.2s;" onmouseover="this.style.color='var(--tierra-medio)'" onmouseout="this.style.color='var(--texto-tenue)'">
+      <i class="ti ti-brand-instagram" style="font-size:18px;"></i>
+      <span>@m.o_construcciones</span>
+    </a>
+  </div>
 </footer>
 
 <!-- BACK TO TOP -->
@@ -1067,8 +1099,9 @@ const footer = document.querySelector('.footer');
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
 
-  // Nav background
-  nav.classList.toggle('scrolled', scrollY > 40);
+  // Nav background — stay transparent until leaving hero
+  const heroH = document.querySelector('.hero') ? document.querySelector('.hero').offsetHeight - 80 : 500;
+  nav.classList.toggle('scrolled', scrollY > heroH);
 
   // Hide nav when footer is visible
   if (footer) {
