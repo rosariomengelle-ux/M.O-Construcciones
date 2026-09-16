@@ -599,19 +599,85 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px; z-index: 110;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 1.5px;
+    background: rgba(240,234,225,0.85); border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav.scrolled .hamburger span { background: var(--tierra-oscuro); }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 105;
+    background-image: var(--tex-url);
+    background-size: 600px auto;
+    flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+  }
+  .mobile-menu::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(237,234,228,0.96);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    position: relative; z-index: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300; letter-spacing: 2px;
+    color: var(--tierra-oscuro); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--tierra-medio); }
+  .mobile-menu-close {
+    position: absolute; top: 1.5rem; right: 1.5rem; z-index: 2;
+    background: none; border: none; cursor: pointer;
+    font-size: 24px; color: var(--tierra-medio);
+  }
+  .nav-brand-text-mobile { display: none; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .nav-links { display: none; }
-    .section { padding: 3.5rem 1.25rem; }
-    .obras-grid { grid-template-columns: 1fr 1fr; }
+    .nav-brand-text { display: none; }
+    .hamburger { display: flex; }
+    .nav { padding: 0 1.25rem; height: 56px; }
+
+    .hero-title { font-size: 32px; white-space: normal; }
+    .hero-content { padding: 0 1.5rem 5rem; }
+    .hero-badge { top: 70px; right: 1.25rem; }
+    .hero-scroll { bottom: 1.5rem; }
+
+    .section { padding: 3rem 1.25rem; }
+    .sec-title { font-size: 24px; }
+
+    .obras-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
     .obra-card:first-child { grid-column: span 2; }
-    .obra-card:first-child .obra-img-placeholder { height: 280px; }
-    .obra-card:not(:first-child) .obra-img-placeholder { height: 160px; }
-    .nosotros-grid { grid-template-columns: 1fr; }
-    .nos-foto { height: 260px; }
-    .t-grid { grid-template-columns: 1fr; }
-    .contacto-grid { grid-template-columns: 1fr; }
-    .footer { flex-direction: column; gap: 8px; text-align: center; }
+    .obra-card:first-child .obra-img-placeholder { height: 260px; }
+    .obra-card:not(:first-child) .obra-img-placeholder { height: 150px; }
+    .obra-card:first-child .obra-nombre { font-size: 18px; }
+
+    .nos-section { min-height: auto; }
+    .nos-contenido { grid-template-columns: 1fr; }
+    .nos-lado-izq { display: none; }
+    .nos-lado-der { padding: 3rem 1.5rem; }
+
+    .t-grid { grid-template-columns: 1fr; gap: 10px; }
+
+    .contacto-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+    .footer { flex-direction: column; gap: 10px; text-align: center; padding: 1.5rem; }
+    .footer > div { justify-content: center; }
+
+    .back-top { bottom: 1.5rem; right: 1.25rem; }
+    .modal { margin: 1rem; }
+    .modal-header { padding: 1.25rem; }
+    .modal-body { padding: 1.25rem; }
+    .galeria-principal { height: 220px; }
   }
 </style>
 </head>
@@ -626,7 +692,19 @@
     <a href="#testimonios">Testimonios</a>
   </div>
   <a href="#contacto" class="nav-cta">Contactanos</a>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="toggleMenu()"><i class="ti ti-x"></i></button>
+  <a href="#obras" onclick="toggleMenu()">Obras</a>
+  <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
+  <a href="#testimonios" onclick="toggleMenu()">Testimonios</a>
+  <a href="#contacto" onclick="toggleMenu()">Contactanos</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="inicio">
@@ -1105,6 +1183,14 @@ async function enviarFormulario(e) {
   f.innerHTML = '<div style="text-align:center;padding:2rem 1rem;"><i class="ti ti-circle-check" style="font-size:36px;color:#7A6A56;"></i><p style="margin-top:1rem;font-size:15px;color:#4A3E30;font-weight:500;">¡Mensaje enviado!</p><p style="margin-top:0.5rem;font-size:13px;color:#8A7660;">Te contactamos en menos de 24 horas.</p></div>';
 }
 
+
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const ham = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  ham.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
 
 // Nav scroll + active links + back to top + hide on footer
 const sections = ['obras', 'nosotros', 'testimonios', 'contacto'];
