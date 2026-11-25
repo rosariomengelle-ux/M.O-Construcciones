@@ -101,27 +101,22 @@ body {
   position: relative; overflow: hidden;
   display: flex; align-items: flex-end;
 }
+/* Video de portada: archivos en video/ (cómo cambiarlo: LEEME_WEB.md).
+   La imagen fija queda de fondo: se ve mientras carga el video, si no carga
+   o si la persona pidió menos movimiento en su equipo. */
 .hero-video-wrap {
   position: absolute; inset: 0; z-index: 0;
-  background: #1E1A14;
+  overflow: hidden; pointer-events: none;
+  background: #1E1A14 url("video/portada.jpg") center / cover no-repeat;
 }
-/* ══ REEMPLAZAR VIDEO ══
-   Subí tu archivo de video a la misma carpeta que este HTML.
-   Luego cambiá "PORTADA M.0.mp4" por el nombre real de tu archivo.
-   Ejemplo: si tu video se llama "portada-drone.mp4", escribí:
-   <video src="portada-drone.mp4" ...>
-*/
-}
-.hero-video-placeholder {
+.hero-video {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
-  background: linear-gradient(160deg, #3D3020 0%, #1E1A14 60%, #0E0C08 100%);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 12px;
+  object-fit: cover;
+  opacity: 0.95;
 }
-.hero-video-placeholder span {
-  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
-  color: rgba(196,168,130,0.25);
-  font-family: 'Jost', sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { display: none; }
 }
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1;
@@ -132,15 +127,6 @@ body {
     rgba(18,14,8,0.05) 100%
   );
 }
-.hero-badge {
-  position: absolute; top: 80px; right: 2.5rem; z-index: 3;
-  display: flex; align-items: center; gap: 7px;
-  background: rgba(255,255,255,0.06);
-  border: 0.5px solid rgba(255,255,255,0.1);
-  padding: 6px 12px; border-radius: 2px;
-}
-.hero-badge i { font-size: 13px; color: rgba(196,168,130,0.5); }
-.hero-badge span { font-size: 11px; color: rgba(196,168,130,0.45); letter-spacing: 1px; }
 .hero-content {
   position: relative; z-index: 3;
   padding: 0 2.5rem 3.5rem;
@@ -616,7 +602,6 @@ body {
 
   .hero-title { font-size: 32px; white-space: normal; }
   .hero-content { padding: 0 1.5rem 5rem; }
-  .hero-badge { top: 70px; right: 1.25rem; }
   .hero-scroll { bottom: 1.5rem; }
 
   .section { padding: 3rem 1.25rem; }

@@ -48,19 +48,13 @@
 
 <!-- HERO -->
 <section class="hero" id="inicio">
-  <div class="hero-video-wrap" style="position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;">
-    <iframe
-      src="https://www.youtube.com/embed/eq4PbCkiOoI?autoplay=1&mute=1&loop=1&playlist=eq4PbCkiOoI&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1"
-      style="position:absolute;top:50%;left:50%;width:177.78vh;height:100vh;min-width:100%;min-height:56.25vw;transform:translate(-50%,-50%);border:none;opacity:0.95;"
-      allow="autoplay; encrypted-media"
-      allowfullscreen
-    ></iframe>
+  <div class="hero-video-wrap">
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="video/portada.jpg" aria-hidden="true">
+      <source media="(max-width: 767px)" src="video/portada-vertical.mp4" type="video/mp4">
+      <source src="video/portada.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-overlay"></div>
-  <div class="hero-badge">
-    <i class="ti ti-drone"></i>
-    <span>Vista aérea · Zona Norte</span>
-  </div>
   <div class="hero-content">
     <p class="hero-eyebrow">Empresa familiar · 30 años</p>
     <h1 class="hero-title">Construimos tranquilidad.</h1>

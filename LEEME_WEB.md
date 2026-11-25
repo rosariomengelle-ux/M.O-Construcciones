@@ -15,6 +15,8 @@ Se va completando a medida que se suman mejoras.
 | `estilos.css` | Colores, tipografías, tamaños y espaciados (el diseño). |
 | `sitio.js` | Lo que se mueve: la ventana de cada obra, el menú del celular, el formulario que abre WhatsApp. También tiene los datos de las obras (`const obras`). |
 | `img/textura.jpg` | La textura de fondo del encabezado (al bajar) y del pie de página. |
+| `video/` | El video de portada: `portada.mp4` (computadora), `portada-vertical.mp4` (celular) y `portada.jpg` (imagen fija). |
+| `herramientas/video_portada.py` | El programa que arma esos tres archivos a partir del video original. |
 | `favicon.png` / `favicon.ico` | El logo M.O que aparece arriba y en la pestaña del navegador. |
 | `LEEME_WEB.md` | Este archivo. |
 
@@ -33,7 +35,28 @@ Se va completando a medida que se suman mejoras.
 
 ---
 
-## 3. Cómo agregar fotos a una obra (forma provisoria)
+## 3. Cómo cambiar el video de portada
+
+El video actual sale de `OneDrive\CONSTRUCCIONES\M.O\WEB\M.0.mp4`, usando solo las partes sin personas y sin tierra
+(de 8,3 a 13,6 s; de 15,75 a 20,2 s; y de 35,25 s al final). Dura 27 segundos y se repite.
+
+Para cambiarlo (o pedírselo a Claude Code):
+
+1. En la carpeta del repositorio, abrí una terminal y escribí:
+   ```
+   python herramientas/video_portada.py "C:\ruta\del\video nuevo.mp4" --tramos 0-25 --poster 2
+   ```
+   - `--tramos`: qué partes del video usar, en segundos. Podés poner varias: `5-12 20-35 40-fin`.
+   - `--poster`: en qué segundo del video ya armado se toma la imagen fija.
+2. El programa reemplaza los tres archivos de `video/` con el mismo nombre y muestra cuánto pesa cada uno
+   (objetivo: 6 MB el horizontal y 4 MB el vertical; si se pasa, baja la calidad solo).
+3. Subí el cambio en una rama, revisá la vista previa y hacé el merge (punto 2).
+
+Qué mostrar (guía de estilo §2.4): obra terminada y limpia, sin personas.
+
+---
+
+## 4. Cómo agregar fotos a una obra (forma provisoria)
 
 > Más adelante las obras van a pasar a un archivo de datos (`datos/obras.json`) y habrá un script que prepara las fotos solo. Hasta entonces, se hace así:
 
@@ -59,7 +82,7 @@ Recordá las reglas firmes: la ubicación es siempre **"Pilar"** (nunca barrio, 
 
 ---
 
-## 4. Cómo poner foto o video de fondo en "Quiénes somos"
+## 5. Cómo poner foto o video de fondo en "Quiénes somos"
 
 En `index.html`, en la sección `NOSOTROS`, cambiá la línea
 ```
@@ -76,7 +99,7 @@ o por un video:
 
 ---
 
-## 5. Cómo crear el Perfil de Empresa en Google (gratis)
+## 6. Cómo crear el Perfil de Empresa en Google (gratis)
 
 Sirve para aparecer en Google Maps y en las búsquedas de "construcción de casas en Pilar".
 
