@@ -1,3 +1,20 @@
+// Video de portada: con "menos movimiento" pedido en el equipo no se descarga
+// y queda la imagen fija; si el video no carga, también queda la imagen fija.
+(function () {
+  const v = document.getElementById('heroVideo');
+  if (!v) return;
+  const sacarVideo = () => {
+    v.pause();
+    v.querySelectorAll('source').forEach(s => s.remove());
+    v.removeAttribute('src');
+    v.load();
+    v.style.display = 'none';
+  };
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { sacarVideo(); return; }
+  const fuentes = v.querySelectorAll('source');
+  fuentes[fuentes.length - 1].addEventListener('error', () => { v.style.display = 'none'; });
+})();
+
 // Datos de obras (cómo cargarlas: ver LEEME_WEB.md)
 const obras = {
   tt: {
