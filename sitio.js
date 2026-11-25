@@ -9,10 +9,14 @@
     v.removeAttribute('src');
     v.load();
     v.style.display = 'none';
+    v.parentElement.classList.add('sin-video');
   };
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { sacarVideo(); return; }
   const fuentes = v.querySelectorAll('source');
-  fuentes[fuentes.length - 1].addEventListener('error', () => { v.style.display = 'none'; });
+  fuentes[fuentes.length - 1].addEventListener('error', () => {
+    v.style.display = 'none';
+    v.parentElement.classList.add('sin-video');
+  });
 })();
 
 // Datos de obras (cómo cargarlas: ver LEEME_WEB.md)

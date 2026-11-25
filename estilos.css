@@ -102,11 +102,16 @@ body {
   display: flex; align-items: flex-end;
 }
 /* Video de portada: archivos en video/ (cómo cambiarlo: LEEME_WEB.md).
-   La imagen fija queda de fondo: se ve mientras carga el video, si no carga
-   o si la persona pidió menos movimiento en su equipo. */
+   Mientras carga, el video muestra su imagen fija (poster). Si no carga, o si la
+   persona pidió menos movimiento en su equipo, el video se saca y la imagen fija
+   queda de fondo. El fondo es oscuro mientras hay video, para que la imagen fija
+   no se transparente detrás. */
 .hero-video-wrap {
   position: absolute; inset: 0; z-index: 0;
   overflow: hidden; pointer-events: none;
+  background: #1E1A14;
+}
+.hero-video-wrap.sin-video {
   background: #1E1A14 url("video/portada.jpg") center / cover no-repeat;
 }
 .hero-video {
@@ -117,6 +122,7 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-video { display: none; }
+  .hero-video-wrap { background: #1E1A14 url("video/portada.jpg") center / cover no-repeat; }
 }
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1;
