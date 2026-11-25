@@ -48,21 +48,24 @@ body {
 .nav.scrolled .nav-brand,
 .nav.scrolled .nav-links,
 .nav.scrolled .nav-cta { position: relative; z-index: 1; }
+/* Logo M.O (Paso 6, versión horizontal). Se pinta con el color del texto:
+   blanco sobre el video, grafito sobre fondos claros. */
+.logo-mo {
+  display: block;
+  aspect-ratio: 397.792 / 85.432;
+  background-color: currentColor;
+  -webkit-mask: url("img/logo-horizontal.svg") no-repeat center / contain;
+          mask: url("img/logo-horizontal.svg") no-repeat center / contain;
+}
 .nav-brand {
-  font-family: 'Jost', sans-serif;
-  font-size: 13px; font-weight: 400;
-  letter-spacing: 3.5px; color: rgba(240,234,225,0.9);
-  text-decoration: none; white-space: nowrap;
+  display: flex; align-items: center;
+  color: #FFFFFF;
+  text-decoration: none;
   transition: color 0.4s;
 }
-.nav.scrolled .nav-brand { color: var(--tierra-oscuro); }
-.nav-logo { height: 70px; width: auto; display: block; vertical-align: middle; filter: brightness(10); transition: filter 0.4s; }
-.nav.scrolled .nav-logo { filter: brightness(0.3); }
-.nav-brand-text {
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-  color: rgba(240,234,225,0.75); transition: color 0.4s;
-}
-.nav.scrolled .nav-brand-text { color: var(--tierra-oscuro); }
+.nav.scrolled .nav-brand { color: #4A4A48; }
+.nav-logo { height: 40px; }
+.footer-logo { height: 36px; color: #4A4A48; }
 .nav-links { display: flex; gap: 2rem; }
 .nav-links a {
   font-size: 12px; letter-spacing: 1px;
@@ -470,10 +473,6 @@ body {
   background: rgba(237,234,228,0.88);
 }
 .footer > * { position: relative; z-index: 1; }
-.footer-brand {
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-  color: #5C5040; white-space: nowrap;
-}
 .footer-slogan { font-size: 12px; color: var(--texto-secundario); font-style: italic; }
 .footer-zona { font-size: 12px; color: var(--texto-tenue); white-space: nowrap; }
 
@@ -597,12 +596,11 @@ body {
   background: none; border: none; cursor: pointer;
   font-size: 24px; color: var(--tierra-medio);
 }
-.nav-brand-text-mobile { display: none; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .nav-brand-text { display: none; }
+  .nav-logo { height: 32px; }
   .hamburger { display: flex; }
   .nav { padding: 0 1.25rem; height: 56px; }
 

@@ -17,7 +17,8 @@ Se va completando a medida que se suman mejoras.
 | `img/textura.jpg` | La textura de fondo del encabezado (al bajar) y del pie de página. |
 | `video/` | El video de portada: `portada.mp4` (computadora), `portada-vertical.mp4` (celular) y `portada.jpg` (imagen fija). |
 | `herramientas/video_portada.py` | El programa que arma esos tres archivos a partir del video original. |
-| `favicon.png` / `favicon.ico` | El logo M.O que aparece arriba y en la pestaña del navegador. |
+| `img/logo-horizontal.svg` | El logo M.O del encabezado y del pie (copia de `M.O\Logo\Entrega\02 Versiones\horizontal`). El color lo pone la página: blanco sobre el video, grafito sobre fondo claro. |
+| `favicon.ico` / `favicon.svg` / `img/apple-touch-icon.png` | El ícono de la pestaña del navegador y del acceso directo en el celular (copias de `M.O\Logo\Entrega\05 Web`). |
 | `LEEME_WEB.md` | Este archivo. |
 
 ---
