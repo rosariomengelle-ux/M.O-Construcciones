@@ -10,6 +10,7 @@
   };
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { sinVideo(); return; }
   v.addEventListener('error', sinVideo);
+  v.addEventListener('playing', () => v.parentElement.classList.add('reproduciendo'), { once: true });
   v.src = window.matchMedia('(max-width: 767px)').matches ? v.dataset.vertical : v.dataset.horizontal;
   const p = v.play();
   if (p && p.catch) p.catch(() => {});  // si el navegador no deja reproducir solo, queda la imagen fija del video

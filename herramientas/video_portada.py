@@ -3,7 +3,8 @@ Arma los tres archivos del video de portada a partir del video original.
 
   video/portada.mp4           horizontal 1920x1080, sin audio  (objetivo: 10 MB o menos)
   video/portada-vertical.mp4  vertical 720x1280 para celular    (objetivo: 4 MB o menos)
-  video/portada.jpg           imagen fija que se ve mientras carga el video
+  video/portada.jpg           imagen fija que se ve mientras carga el video (computadora)
+  video/portada-vertical.jpg  imagen fija para celular
 
 Uso (desde la carpeta del repositorio):
   python herramientas/video_portada.py "C:\\ruta\\al\\video original.mp4"
@@ -97,7 +98,7 @@ def main():
 
     print("Original:", original)
     print("Tramos:", ", ".join(a.tramos))
-    print("Se van a escribir en", SALIDA, ": portada.mp4, portada-vertical.mp4, portada.jpg")
+    print("Se van a escribir en", SALIDA, ": portada.mp4, portada-vertical.mp4 y sus imágenes fijas")
 
     with tempfile.TemporaryDirectory() as tmp:
         intermedio = Path(tmp) / "unido.mp4"
@@ -105,9 +106,12 @@ def main():
         unir_tramos(original, a.tramos, intermedio)
         for nombre, filtro, objetivo in FORMATOS:
             codificar(intermedio, nombre, filtro, objetivo)
-        correr(["ffmpeg", "-v", "error", "-y", "-ss", str(a.poster), "-i", str(intermedio),
-                "-frames:v", "1", "-q:v", "6", str(SALIDA / "portada.jpg")])  # q 6 ≈ JPG al 70 %, liviano
-        print(f"  portada.jpg: {(SALIDA / 'portada.jpg').stat().st_size / 1000:.0f} KB (segundo {a.poster})")
+        # Imágenes fijas: se ven solo unos segundos mientras carga el video, así que van livianas.
+        for origen, nombre, tam in [(SALIDA / "portada.mp4", "portada.jpg", "1280:720"),
+                                    (SALIDA / "portada-vertical.mp4", "portada-vertical.jpg", "540:960")]:
+            correr(["ffmpeg", "-v", "error", "-y", "-ss", str(a.poster), "-i", str(origen),
+                    "-frames:v", "1", "-vf", f"scale={tam}:flags=lanczos", "-q:v", "5", str(SALIDA / nombre)])
+            print(f"  {nombre}: {(SALIDA / nombre).stat().st_size / 1000:.0f} KB (segundo {a.poster})")
     print("Listo.")
 
 

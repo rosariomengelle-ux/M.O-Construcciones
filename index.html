@@ -47,9 +47,11 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Lo primero que se ve: tipografías y la imagen fija de la portada -->
+<link rel="preload" href="fuentes/jost-latin-5.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fuentes/cormorant-garamond-latin-3.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="video/portada-vertical.jpg" as="image" media="(max-width: 767px)" fetchpriority="high">
+<link rel="preload" href="video/portada.jpg" as="image" media="(min-width: 768px)" fetchpriority="high">
 <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
@@ -83,7 +85,7 @@
 <section class="hero" id="inicio">
   <div class="hero-video-wrap">
     <!-- El archivo lo elige sitio.js según la pantalla, para que se baje uno solo -->
-    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="video/portada.jpg" aria-hidden="true"
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
            data-horizontal="video/portada.mp4" data-vertical="video/portada-vertical.mp4"></video>
   </div>
   <div class="hero-overlay"></div>
