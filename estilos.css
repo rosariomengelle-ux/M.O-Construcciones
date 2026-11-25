@@ -14,6 +14,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -214,17 +215,10 @@ body {
   object-fit: cover;
   transition: transform 0.6s ease;
 }
-/* Placeholders de color hasta que carguen las fotos reales */
-.obra-img-placeholder {
-  width: 100%;
-  background: var(--ph-color, #5C5040);
-  transition: transform 0.6s ease;
-}
-.obra-card:first-child .obra-img-placeholder { height: 420px; }
-.obra-card:not(:first-child) .obra-img-placeholder { height: 205px; }
 
 .obra-card:hover .obra-img,
-.obra-card:hover .obra-img-placeholder { transform: scale(1.04); }
+.obra-card:focus-visible .obra-img { transform: scale(1.04); }
+.obra-card:focus-visible { outline: 2px solid var(--tierra-acento); outline-offset: 2px; }
 
 .obra-overlay {
   position: absolute; inset: 0;
@@ -425,11 +419,6 @@ body {
 .galeria-principal img {
   width: 100%; height: 100%; object-fit: cover;
 }
-.galeria-placeholder {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-}
-.galeria-placeholder i { font-size: 32px; color: rgba(196,168,130,0.2); }
-.galeria-placeholder span { font-size: 11px; letter-spacing: 2px; color: rgba(196,168,130,0.2); text-transform: uppercase; }
 
 /* Video dentro del modal */
 .modal-video {
@@ -449,10 +438,10 @@ body {
   display: flex; align-items: center; justify-content: center;
 }
 .thumb.active { border-color: var(--tierra-medio); }
+button.thumb { padding: 0; font: inherit; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
-.thumb-placeholder { font-size: 16px; color: rgba(196,168,130,0.3); }
 
-/* Instrucciones de cómo agregar fotos */
+/* Ficha de la obra */
 .modal-ficha { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .ficha-item { display: flex; flex-direction: column; gap: 2px; }
 .ficha-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-tenue); }
@@ -597,6 +586,51 @@ body {
   font-size: 24px; color: var(--tierra-medio);
 }
 
+/* ── CÓMO TRABAJAMOS ── */
+.pasos {
+  list-style: none;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.paso { border-top: 0.5px solid var(--borde-medio); padding-top: 1.25rem; }
+.paso-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px; font-weight: 300; line-height: 1;
+  color: var(--tierra-acento); margin-bottom: 0.75rem;
+}
+.paso-titulo { font-size: 14px; font-weight: 500; color: var(--tierra-oscuro); margin-bottom: 0.4rem; }
+.paso-texto { font-size: 13px; line-height: 1.6; color: var(--texto-secundario); }
+
+/* Bloque "¿Compraste el lote?" y caja de arquitectos */
+.lote, .arq-caja {
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  background: var(--crema); border: 0.5px solid var(--borde);
+  border-radius: 2px; padding: 1.75rem 2rem;
+}
+.lote-titulo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px; font-weight: 400; color: var(--tierra-oscuro); margin-bottom: 0.3rem;
+}
+.lote-texto, .arq-texto { font-size: 14px; line-height: 1.6; color: var(--texto-secundario); max-width: 560px; }
+.arq-texto { margin-top: 0.75rem; }
+.boton {
+  display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
+  font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 1px;
+  background: var(--tierra-medio); color: var(--crema);
+  padding: 12px 26px; border-radius: 2px; text-decoration: none;
+  transition: background 0.2s;
+}
+.boton:hover { background: var(--tierra-oscuro); }
+.boton i { font-size: 16px; }
+
+@media (max-width: 900px) {
+  .pasos { grid-template-columns: 1fr; gap: 0; }
+  .paso { display: grid; grid-template-columns: 44px 1fr; column-gap: 0.75rem; padding: 1rem 0; }
+  .paso-num { grid-row: span 2; font-size: 30px; margin-bottom: 0; }
+  .lote, .arq-caja { flex-direction: column; align-items: flex-start; gap: 1.25rem; padding: 1.5rem 1.25rem; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .nav-links { display: none; }
@@ -613,8 +647,8 @@ body {
 
   .obras-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
   .obra-card:first-child { grid-column: span 2; }
-  .obra-card:first-child .obra-img-placeholder { height: 260px; }
-  .obra-card:not(:first-child) .obra-img-placeholder { height: 150px; }
+  .obra-card:first-child .obra-img { height: 260px; }
+  .obra-card:not(:first-child) .obra-img { height: 150px; }
   .obra-card:first-child .obra-nombre { font-size: 18px; }
 
   .nos-section { min-height: auto; }

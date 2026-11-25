@@ -13,7 +13,10 @@ Se va completando a medida que se suman mejoras.
 |---|---|
 | `index.html` | Los textos y el orden de las secciones de la página. |
 | `estilos.css` | Colores, tipografías, tamaños y espaciados (el diseño). |
-| `sitio.js` | Lo que se mueve: la ventana de cada obra, el menú del celular, el formulario que abre WhatsApp. También tiene los datos de las obras (`const obras`). |
+| `sitio.js` | Lo que se mueve: las obras y testimonios (los lee de `datos/`), la ventana de cada obra, el menú del celular, el formulario que abre WhatsApp. |
+| `datos/obras.json` | Las obras: nombre, año, tipo, fotos… (punto 4). |
+| `datos/testimonios.json` | Los testimonios (punto 5). |
+| `fotos/<obra>/` | Las fotos de cada obra, preparadas con `herramientas/preparar_fotos.py`. |
 | `img/textura.jpg` | La textura de fondo del encabezado (al bajar) y del pie de página. |
 | `video/` | El video de portada: `portada.mp4` (computadora), `portada-vertical.mp4` (celular) y `portada.jpg` (imagen fija). |
 | `herramientas/video_portada.py` | El programa que arma esos tres archivos a partir del video original. |
@@ -57,33 +60,69 @@ Qué mostrar (guía de estilo §2.4): obra terminada y limpia, sin personas.
 
 ---
 
-## 4. Cómo agregar fotos a una obra (forma provisoria)
+## 4. Cómo agregar una obra
 
-> Más adelante las obras van a pasar a un archivo de datos (`datos/obras.json`) y habrá un script que prepara las fotos solo. Hasta entonces, se hace así:
+Las obras están en `datos/obras.json`. **Una obra aparece en la página solo si tiene 3 fotos o más.**
+Si ninguna tiene, la sección "Nuestras obras" y su link del menú no se muestran (nunca quedan cuadros vacíos).
 
-1. Creá una carpeta `fotos` junto a `index.html` y poné ahí las fotos exportadas desde Lightroom con el ajuste **"MO Web"**.
-2. **Fotos de la ventana de la obra:** abrí `sitio.js`, buscá la obra en `const obras` (por ejemplo `cebu:`) y completá la lista `fotos`:
+1. **Exportá las fotos** desde Lightroom con el ajuste **"MO Web"** (2400 px, sRGB, JPG al 80 %, sin logo) a una carpeta cualquiera.
+   El orden de la web es el orden alfabético de los archivos: la primera es la portada de la tarjeta.
+2. **Prepará las fotos** (o pedíselo a Claude Code). En la carpeta del repositorio, en una terminal:
    ```
-   fotos: ["fotos/casa-el-cebu-1.jpg", "fotos/casa-el-cebu-2.jpg"],
+   python herramientas/preparar_fotos.py "C:\carpeta\de las fotos exportadas" casa-tt
    ```
-3. **Video de la obra:** en la misma obra, completá `video` con la ruta del archivo:
-   ```
-   video: "videos/casa-el-cebu.mp4"
-   ```
-4. **Foto de la tarjeta (portada de la obra):** en `index.html`, dentro de la tarjeta de esa obra, cambiá la línea
-   ```
-   <div class="obra-img-placeholder" style="--ph-color:#6B5B46;"></div>
-   ```
-   por
-   ```
-   <img class="obra-img" src="fotos/casa-el-cebu-portada.jpg" alt="Casa El Cebú, casa nueva en Pilar">
-   ```
+   `casa-tt` es el `slug` de la obra (ver abajo). El programa muestra qué va a hacer y pregunta antes:
+   - copia las fotos a `fotos/casa-tt/` como `01.jpg`, `02.jpg`… y una versión chica `01-1200.jpg`… para que la página cargue rápido;
+   - **les borra la ubicación GPS y todos los datos de la cámara**, y lo verifica;
+   - completa la lista `fotos` de esa obra en `datos/obras.json`.
+   Los originales no se tocan. Si lo volvés a correr, reemplaza las fotos de esa obra.
+3. **Revisá los datos de la obra** en `datos/obras.json` (se abre con el Bloc de notas):
 
-Recordá las reglas firmes: la ubicación es siempre **"Pilar"** (nunca barrio, lote ni apellido del cliente), nunca precios ni m² con números, y las obras de otros estudios necesitan crédito y permiso.
+   | Campo | Qué poner |
+   |---|---|
+   | `slug` | Nombre de la carpeta de fotos: minúsculas y guiones, sin tildes (`casa-el-cebu`). |
+   | `codigo` | El código interno (TT, CB…). No se muestra. |
+   | `nombre_publico` | El nombre que se ve en la web (el Nombre público del maestro). Nunca el apellido del cliente. |
+   | `anio` | Año de terminación, sin comillas: `2026`. |
+   | `tipo` | `"Casa nueva"` o `"Ampliación"`. |
+   | `ubicacion` | Siempre `"Pilar"`. Si se pone otra cosa, la web igual muestra "Pilar". |
+   | `destacada` | `true` en una sola obra: sale primera y en grande. Las demás, `false`. |
+   | `proyecto` | Vacío (`""`) si el proyecto es nuestro. Si es de otro estudio, su nombre: la web muestra "Proyecto: …". |
+   | `estudio_instagram` | El usuario de Instagram del estudio (`"@estudio"`), para el link. Opcional. |
+   | `permiso_estudio` | Fecha en que el estudio dio permiso (`"DD-MM-AAAA"`). **Si hay `proyecto` y esto está vacío, la obra no se muestra.** |
+   | `video` | Ruta a un video de la obra (`"video/obras/casa-tt.mp4"`), o `""`. |
+   | `publicar` | `true` para mostrarla, `false` para ocultarla sin borrarla. |
+
+   Cuidado con las comas y las comillas: cada campo termina en coma, salvo el último de la obra.
+4. Subí el cambio en una rama, mirá la vista previa y hacé el merge (punto 2).
+
+**Agregar una obra nueva a la lista:** copiá un bloque `{ … }` entero de otra obra, pegalo después de la última
+(con una coma entre `}` y `{`) y cambiá los datos.
+
+Reglas firmes: la ubicación es siempre **"Pilar"** (nunca barrio, lote, dirección ni apellido del cliente),
+nunca precios ni m² con números, y las obras de otros estudios necesitan crédito y permiso.
 
 ---
 
-## 5. Cómo poner foto o video de fondo en "Quiénes somos"
+## 5. Cómo cargar un testimonio
+
+Los testimonios están en `datos/testimonios.json`. Hoy está vacío (`[]`), así que la sección "Testimonios" y su link
+del menú no se muestran. Para agregar uno, el archivo queda así:
+
+```
+[
+  { "texto": "Lo que dijo el cliente, sin comillas adentro.", "nombre": "Familia P.", "tipo": "Casa nueva", "real_con_permiso": true }
+]
+```
+
+- Solo se muestran los que tienen `"real_con_permiso": true`: tiene que ser real y el cliente tiene que haber dicho que sí.
+- `nombre`: solo nombre de pila ("Laura y Martín") o "Familia" + inicial ("Familia P."). **Nunca el apellido completo.**
+- **Sin lugar**: no se pone barrio ni localidad.
+- Para agregar otro, se separa con una coma: `[ {…}, {…} ]`.
+
+---
+
+## 6. Cómo poner foto o video de fondo en "Quiénes somos"
 
 En `index.html`, en la sección `NOSOTROS`, cambiá la línea
 ```
@@ -100,7 +139,7 @@ o por un video:
 
 ---
 
-## 6. Cómo crear el Perfil de Empresa en Google (gratis)
+## 7. Cómo crear el Perfil de Empresa en Google (gratis)
 
 Sirve para aparecer en Google Maps y en las búsquedas de "construcción de casas en Pilar".
 
