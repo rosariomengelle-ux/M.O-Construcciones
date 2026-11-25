@@ -116,27 +116,18 @@ function selTipo(el) {
 }
 
 // Formulario → WhatsApp
-async function enviarFormulario(e) {
+// No se envía nada desde la página: solo se abre WhatsApp con el mensaje armado
+// y la persona lo manda desde su teléfono.
+function enviarFormulario(e) {
   e.preventDefault();
   const f = e.target;
 
-  // Send to Formspree
-  try {
-    await fetch('https://formspree.io/f/mppzvyvw', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: new FormData(f)
-    });
-  } catch(err) {
-    console.error('Formspree error:', err);
-  }
-
-  // Also open WhatsApp
   const msg = `Hola MO Construcciones! Soy ${f.nombre.value} (${f.tipo.value || document.querySelector('.tipo-btn.active').textContent}). Zona: ${f.zona.value}. Proyecto: ${f.proyecto.value}. ${f.mensaje.value}. Tel: ${f.telefono.value}`;
-  window.open('https://wa.me/5491133967462?text=' + encodeURIComponent(msg), '_blank');
+  const link = 'https://wa.me/5491133967462?text=' + encodeURIComponent(msg);
+  const ventana = window.open(link, '_blank');
+  if (!ventana) { window.location.href = link; return; } // si el navegador bloquea la ventana nueva
 
-  // Show confirmation
-  f.innerHTML = '<div style="text-align:center;padding:2rem 1rem;"><i class="ti ti-circle-check" style="font-size:36px;color:#7A6A56;"></i><p style="margin-top:1rem;font-size:15px;color:#4A3E30;font-weight:500;">¡Mensaje enviado!</p><p style="margin-top:0.5rem;font-size:13px;color:#8A7660;">Te contactamos en menos de 24 horas.</p></div>';
+  f.innerHTML = '<div style="text-align:center;padding:2rem 1rem;"><i class="ti ti-brand-whatsapp" style="font-size:36px;color:#7A6A56;"></i><p style="margin-top:1rem;font-size:15px;color:#4A3E30;font-weight:500;">Se abrió WhatsApp con tu mensaje</p><p style="margin-top:0.5rem;font-size:13px;color:#8A7660;">Tocá enviar en WhatsApp para que nos llegue. Te respondemos en menos de 24 horas.</p></div>';
 }
 
 
