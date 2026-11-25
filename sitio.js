@@ -265,7 +265,7 @@ function toggleMenu() {
 }
 
 // Nav scroll + active links + back to top + hide on footer
-const sections = ['obras', 'como-trabajamos', 'nosotros', 'testimonios', 'contacto'];
+const sections = ['obras', 'nosotros', 'testimonios', 'contacto'];
 const navLinks = document.querySelectorAll('.nav-links a');
 const backTop = document.getElementById('backTop');
 const nav = document.getElementById('nav');
