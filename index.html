@@ -28,9 +28,9 @@
 <nav class="nav" id="nav">
   <a href="#inicio" class="nav-brand" aria-label="M.O Construcciones, volver al inicio"><span class="logo-mo nav-logo" aria-hidden="true"></span></a>
   <div class="nav-links">
-    <a href="#obras">Obras</a>
+    <a href="#obras" data-seccion="obras" hidden>Obras</a>
     <a href="#nosotros">Nosotros</a>
-    <a href="#testimonios">Testimonios</a>
+    <a href="#testimonios" data-seccion="testimonios" hidden>Testimonios</a>
   </div>
   <a href="#contacto" class="nav-cta">Contactanos</a>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
@@ -41,9 +41,9 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" onclick="toggleMenu()"><i class="ti ti-x"></i></button>
-  <a href="#obras" onclick="toggleMenu()">Obras</a>
+  <a href="#obras" data-seccion="obras" onclick="toggleMenu()" hidden>Obras</a>
   <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
-  <a href="#testimonios" onclick="toggleMenu()">Testimonios</a>
+  <a href="#testimonios" data-seccion="testimonios" onclick="toggleMenu()" hidden>Testimonios</a>
   <a href="#contacto" onclick="toggleMenu()">Contactanos</a>
 </div>
 
@@ -68,7 +68,7 @@
 </section>
 
 <!-- PORTFOLIO -->
-<section class="section" id="obras">
+<section class="section" id="obras" hidden>
   <div class="section-header reveal">
     <span class="eyebrow">Portfolio</span>
     <h2 class="sec-title">Nuestras obras</h2>
@@ -77,70 +77,7 @@
     </div>
   </div>
 
-  <div class="obras-grid">
-
-    <!-- OBRA 1 — Casa TT -->
-    <div class="obra-card reveal" onclick="abrirObra('tt')">
-      <div class="obra-img-placeholder" style="--ph-color:#5C5040;"></div>
-      <span class="obra-tag">Destacada</span>
-      <div class="obra-overlay">
-        <p class="obra-nombre">Casa TT</p>
-        <p class="obra-meta">Pilar · 2025 · Casa nueva</p>
-        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
-      </div>
-    </div>
-
-    <!-- OBRA 2 — Casa El Cebú -->
-    <div class="obra-card reveal" onclick="abrirObra('cebu')">
-      <div class="obra-img-placeholder" style="--ph-color:#6B5B46;"></div>
-      <div class="obra-overlay">
-        <p class="obra-nombre">Casa El Cebú</p>
-        <p class="obra-meta">Pilar · 2026 · Casa nueva</p>
-        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
-      </div>
-    </div>
-
-    <!-- OBRA 3 — Casa SJ -->
-    <div class="obra-card reveal" onclick="abrirObra('sj')">
-      <div class="obra-img-placeholder" style="--ph-color:#7A6A56;"></div>
-      <div class="obra-overlay">
-        <p class="obra-nombre">Casa SJ</p>
-        <p class="obra-meta">Pilar · 2026 · Casa nueva</p>
-        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
-      </div>
-    </div>
-
-    <!-- OBRA 4 — Casa BC -->
-    <div class="obra-card reveal" onclick="abrirObra('bc')">
-      <div class="obra-img-placeholder" style="--ph-color:#8B7355;"></div>
-      <div class="obra-overlay">
-        <p class="obra-nombre">Casa BC</p>
-        <p class="obra-meta">Pilar · 2026 · Casa nueva</p>
-        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
-      </div>
-    </div>
-
-    <!-- OBRA 5 — Casa JP -->
-    <div class="obra-card reveal" onclick="abrirObra('jp')">
-      <div class="obra-img-placeholder" style="--ph-color:#6B5040;"></div>
-      <div class="obra-overlay">
-        <p class="obra-nombre">Casa JP</p>
-        <p class="obra-meta">Pilar · 2026 · Casa nueva</p>
-        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
-      </div>
-    </div>
-
-    <!-- OBRA 6 — Ampliación CM -->
-    <div class="obra-card reveal" onclick="abrirObra('cm')">
-      <div class="obra-img-placeholder" style="--ph-color:#7A6550;"></div>
-      <div class="obra-overlay">
-        <p class="obra-nombre">Ampliación CM</p>
-        <p class="obra-meta">Pilar · 2025 · Ampliación</p>
-        <span class="obra-ver">Ver proyecto <i class="ti ti-arrow-right"></i></span>
-      </div>
-    </div>
-
-  </div>
+  <div class="obras-grid" id="obrasGrid"><!-- Se completa desde datos/obras.json --></div>
 </section>
 
 <!-- NOSOTROS -->
@@ -169,31 +106,12 @@
 </section>
 
 <!-- TESTIMONIOS -->
-<section class="section" id="testimonios">
+<section class="section" id="testimonios" hidden>
   <div class="section-header reveal">
     <span class="eyebrow">Testimonios</span>
     <h2 class="sec-title" style="font-size:26px;">Lo que dicen nuestros clientes</h2>
   </div>
-  <div class="t-grid">
-    <div class="t-card reveal">
-      <div class="t-dots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
-      <p class="t-text">"Nunca pensé que construir iba a ser tan tranquilo. Estuvieron presentes en cada decisión."</p>
-      <p class="t-nombre">Familia García</p>
-      <p class="t-zona">Nordelta · Casa nueva</p>
-    </div>
-    <div class="t-card reveal">
-      <div class="t-dots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
-      <p class="t-text">"Los recomendé a tres amigos. La relación con ellos hace que sea una experiencia única."</p>
-      <p class="t-nombre">Marcelo y Valeria</p>
-      <p class="t-zona">Pilar · Ampliación</p>
-    </div>
-    <div class="t-card reveal">
-      <div class="t-dots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
-      <p class="t-text">"La obra terminó siendo como la soñamos. El equipo se convirtió casi en parte de la familia."</p>
-      <p class="t-nombre">Sofía y Rodrigo</p>
-      <p class="t-zona">Tigre · Casa nueva</p>
-    </div>
-  </div>
+  <div class="t-grid" id="testimoniosGrid"><!-- Se completa desde datos/testimonios.json --></div>
   <p class="t-boca reveal"><strong>Toda nuestra clientela es de boca en boca.</strong> Eso lo dice todo.</p>
 </section>
 
@@ -325,12 +243,7 @@
       </div>
 
       <!-- Foto principal -->
-      <div class="galeria-principal" id="galeria-principal">
-        <div class="galeria-placeholder">
-          <i class="ti ti-photo"></i>
-          <span>Fotos de la obra</span>
-        </div>
-      </div>
+      <div class="galeria-principal" id="galeria-principal"></div>
 
       <!-- Miniaturas -->
       <div class="galeria-thumbs" id="galeria-thumbs"></div>

@@ -19,92 +19,167 @@
   });
 })();
 
-// Datos de obras (cómo cargarlas: ver LEEME_WEB.md)
-const obras = {
-  tt: {
-    nombre: "Casa TT",
-    meta: "Pilar · 2025 · Casa nueva",
-    ficha: { Año: "2025", Ubicación: "Pilar", Tipo: "Casa nueva" },
-    fotos: [],
-    video: ""
-  },
-  cebu: {
-    nombre: "Casa El Cebú",
-    meta: "Pilar · 2026 · Casa nueva",
-    ficha: { Año: "2026", Ubicación: "Pilar", Tipo: "Casa nueva" },
-    fotos: [],
-    video: ""
-  },
-  sj: {
-    nombre: "Casa SJ",
-    meta: "Pilar · 2026 · Casa nueva",
-    ficha: { Año: "2026", Ubicación: "Pilar", Tipo: "Casa nueva" },
-    fotos: [],
-    video: ""
-  },
-  bc: {
-    nombre: "Casa BC",
-    meta: "Pilar · 2026 · Casa nueva",
-    ficha: { Año: "2026", Ubicación: "Pilar", Tipo: "Casa nueva" },
-    fotos: [],
-    video: ""
-  },
-  jp: {
-    nombre: "Casa JP",
-    meta: "Pilar · 2026 · Casa nueva",
-    ficha: { Año: "2026", Ubicación: "Pilar", Tipo: "Casa nueva" },
-    fotos: [],
-    video: ""
-  },
-  cm: {
-    nombre: "Ampliación CM",
-    meta: "Pilar · 2025 · Ampliación",
-    ficha: { Año: "2025", Ubicación: "Pilar", Tipo: "Ampliación" },
-    fotos: [],
-    video: ""
+// ══ Obras y testimonios ══
+// Los datos están en datos/obras.json y datos/testimonios.json (cómo cargarlos: LEEME_WEB.md).
+// Reglas firmes (Paso 8): la ubicación es siempre "Pilar"; una obra de otro estudio solo se
+// muestra con su permiso; un testimonio solo se muestra si es real y tiene permiso.
+const MIN_FOTOS = 3;
+let obras = {};
+
+function versionChica(foto) {           // fotos/casa/01.jpg → fotos/casa/01-1200.jpg
+  return foto.replace(/\.jpg$/i, '-1200.jpg');
+}
+
+function obraValida(o) {
+  if (!o.publicar) return false;
+  if (o.ubicacion && o.ubicacion !== 'Pilar') {
+    console.warn(`Obra "${o.nombre_publico}": ubicación "${o.ubicacion}" no permitida, se muestra "Pilar".`);
   }
-};
+  if (o.proyecto && !o.permiso_estudio) {
+    console.warn(`Obra "${o.nombre_publico}": es de ${o.proyecto} y no tiene permiso_estudio, no se muestra.`);
+    return false;
+  }
+  if (!Array.isArray(o.fotos) || o.fotos.length < MIN_FOTOS) return false;
+  return true;
+}
 
-function abrirObra(id) {
-  const o = obras[id];
-  document.getElementById('modal-titulo').textContent = o.nombre;
-  document.getElementById('modal-meta').textContent = o.meta;
+function mostrarSeccion(id, visible) {
+  document.getElementById(id).hidden = !visible;
+  document.querySelectorAll(`[data-seccion="${id}"]`).forEach(a => { a.hidden = !visible; });
+}
 
-  // Fotos
+function tarjetaObra(o) {
+  const card = document.createElement('div');
+  card.className = 'obra-card reveal';
+  card.tabIndex = 0;
+  card.setAttribute('role', 'button');
+  card.onclick = () => abrirObra(o.slug);
+  card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirObra(o.slug); } };
+
+  const img = document.createElement('img');
+  img.className = 'obra-img';
+  img.loading = 'lazy';
+  img.src = versionChica(o.fotos[0]);
+  img.srcset = `${versionChica(o.fotos[0])} 1200w, ${o.fotos[0]} 2400w`;
+  img.sizes = '(max-width: 768px) 100vw, 50vw';
+  img.alt = `${o.nombre_publico}, ${o.tipo.toLowerCase()} en Pilar`;
+  card.appendChild(img);
+
+  if (o.destacada) {
+    const tag = document.createElement('span');
+    tag.className = 'obra-tag';
+    tag.textContent = 'Destacada';
+    card.appendChild(tag);
+  }
+  const ov = document.createElement('div');
+  ov.className = 'obra-overlay';
+  const nom = document.createElement('p');
+  nom.className = 'obra-nombre';
+  nom.textContent = o.nombre_publico;
+  const meta = document.createElement('p');
+  meta.className = 'obra-meta';
+  meta.textContent = ['Pilar', o.anio, o.tipo].filter(Boolean).join(' · ');
+  const ver = document.createElement('span');
+  ver.className = 'obra-ver';
+  ver.innerHTML = 'Ver proyecto <i class="ti ti-arrow-right"></i>';
+  ov.append(nom, meta, ver);
+  card.appendChild(ov);
+  return card;
+}
+
+async function cargarObras() {
+  let lista = [];
+  try {
+    lista = await (await fetch('datos/obras.json', { cache: 'no-cache' })).json();
+  } catch (err) {
+    console.warn('No se pudo leer datos/obras.json', err);
+  }
+  const validas = lista.filter(obraValida)
+    .sort((a, b) => (b.destacada === true) - (a.destacada === true));  // la destacada va primero (tarjeta grande)
+  obras = Object.fromEntries(validas.map(o => [o.slug, o]));
+  const grid = document.getElementById('obrasGrid');
+  grid.innerHTML = '';
+  validas.forEach(o => grid.appendChild(tarjetaObra(o)));
+  mostrarSeccion('obras', validas.length > 0);
+  grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+async function cargarTestimonios() {
+  let lista = [];
+  try {
+    lista = await (await fetch('datos/testimonios.json', { cache: 'no-cache' })).json();
+  } catch (err) {
+    console.warn('No se pudo leer datos/testimonios.json', err);
+  }
+  const validos = lista.filter(t => t.real_con_permiso === true && t.texto && t.nombre);
+  const grid = document.getElementById('testimoniosGrid');
+  grid.innerHTML = '';
+  validos.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 't-card reveal';
+    card.innerHTML = '<div class="t-dots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>';
+    const txt = document.createElement('p');
+    txt.className = 't-text';
+    txt.textContent = `"${t.texto}"`;
+    const nom = document.createElement('p');
+    nom.className = 't-nombre';
+    nom.textContent = t.nombre;
+    card.append(txt, nom);
+    if (t.tipo) {                        // sin lugar: solo el tipo de obra
+      const tipo = document.createElement('p');
+      tipo.className = 't-zona';
+      tipo.textContent = t.tipo;
+      card.appendChild(tipo);
+    }
+    grid.appendChild(card);
+  });
+  mostrarSeccion('testimonios', validos.length > 0);
+  grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+function fotoGrande(gp, foto, alt) {
+  gp.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = foto;
+  img.alt = alt;
+  img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+  gp.appendChild(img);
+}
+
+function abrirObra(slug) {
+  const o = obras[slug];
+  if (!o) return;
+  document.getElementById('modal-titulo').textContent = o.nombre_publico;
+  document.getElementById('modal-meta').textContent = ['Pilar', o.anio, o.tipo].filter(Boolean).join(' · ');
+
+  // Fotos: la grande en 2400 px, las miniaturas en 1200 px
   const gp = document.getElementById('galeria-principal');
   const gt = document.getElementById('galeria-thumbs');
-  gp.innerHTML = '';
   gt.innerHTML = '';
-
-  if (o.fotos && o.fotos.length > 0) {
-    const img = document.createElement('img');
-    img.src = o.fotos[0]; img.alt = o.nombre;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
-    gp.appendChild(img);
-    o.fotos.forEach((f, i) => {
-      const t = document.createElement('div');
-      t.className = 'thumb' + (i === 0 ? ' active' : '');
-      const ti = document.createElement('img');
-      ti.src = f; ti.alt = o.nombre + ' ' + (i+1);
-      t.appendChild(ti);
-      t.onclick = () => {
-        gp.innerHTML = '';
-        const ni = document.createElement('img');
-        ni.src = f; ni.style.cssText = 'width:100%;height:100%;object-fit:cover;';
-        gp.appendChild(ni);
-        gt.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
-        t.classList.add('active');
-      };
-      gt.appendChild(t);
-    });
-  } else {
-    gp.innerHTML = '<div class="galeria-placeholder"><i class="ti ti-photo"></i><span>Fotos de la obra</span></div>';
-  }
+  fotoGrande(gp, o.fotos[0], `${o.nombre_publico}, foto 1`);
+  o.fotos.forEach((f, i) => {
+    const t = document.createElement('button');
+    t.type = 'button';
+    t.className = 'thumb' + (i === 0 ? ' active' : '');
+    t.setAttribute('aria-label', `Ver foto ${i + 1}`);
+    const ti = document.createElement('img');
+    ti.src = versionChica(f);
+    ti.alt = '';
+    ti.loading = 'lazy';
+    t.appendChild(ti);
+    t.onclick = () => {
+      fotoGrande(gp, f, `${o.nombre_publico}, foto ${i + 1}`);
+      gt.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+    };
+    gt.appendChild(t);
+  });
 
   // Video
   const mv = document.getElementById('modal-video');
   if (o.video) {
     document.getElementById('modal-video-src').src = o.video;
+    mv.querySelector('video').load();
     mv.style.display = 'block';
   } else {
     mv.style.display = 'none';
@@ -112,9 +187,26 @@ function abrirObra(id) {
 
   // Ficha
   const mf = document.getElementById('modal-ficha');
-  mf.innerHTML = Object.entries(o.ficha).map(([k,v]) =>
-    `<div class="ficha-item"><span class="ficha-label">${k}</span><span class="ficha-valor">${v}</span></div>`
-  ).join('');
+  mf.innerHTML = '';
+  const ficha = [['Año', o.anio], ['Ubicación', 'Pilar'], ['Tipo', o.tipo]];
+  if (o.proyecto) ficha.push(['Proyecto', o.proyecto]);
+  ficha.filter(([, v]) => v).forEach(([k, v]) => {
+    const item = document.createElement('div');
+    item.className = 'ficha-item';
+    const l = document.createElement('span');
+    l.className = 'ficha-label';
+    l.textContent = k;
+    const val = document.createElement(k === 'Proyecto' && o.estudio_instagram ? 'a' : 'span');
+    val.className = 'ficha-valor';
+    val.textContent = v;
+    if (val.tagName === 'A') {
+      val.href = 'https://www.instagram.com/' + o.estudio_instagram.replace(/^@/, '');
+      val.target = '_blank';
+      val.rel = 'noopener';
+    }
+    item.append(l, val);
+    mf.appendChild(item);
+  });
 
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -190,7 +282,7 @@ window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(id => {
     const el = document.getElementById(id);
-    if (el && el.offsetTop - 120 <= scrollY) current = id;
+    if (el && !el.hidden && el.offsetTop - 120 <= scrollY) current = id;
   });
   navLinks.forEach(a => {
     const href = a.getAttribute('href').replace('#', '');
@@ -203,3 +295,6 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+cargarObras();
+cargarTestimonios();
