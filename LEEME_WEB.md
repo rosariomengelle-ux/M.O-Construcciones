@@ -18,8 +18,6 @@ Se va completando a medida que se suman mejoras.
 | `favicon.png` / `favicon.ico` | El logo M.O que aparece arriba y en la pestaña del navegador. |
 | `LEEME_WEB.md` | Este archivo. |
 
-`MO_Construcciones_YouTube.html` e `index.html.html` son versiones viejas que no se publican como página principal.
-
 ---
 
 ## 2. Cómo se aprueba un cambio (nada se publica sin tu OK)
