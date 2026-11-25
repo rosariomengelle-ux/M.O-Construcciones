@@ -742,22 +742,6 @@ button.thumb { padding: 0; font: inherit; }
   font-size: 24px; color: var(--tierra-medio);
 }
 
-/* ── CÓMO TRABAJAMOS ── */
-.pasos {
-  list-style: none;
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-.paso { border-top: 0.5px solid var(--borde-medio); padding-top: 1.25rem; }
-.paso-num {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 34px; font-weight: 300; line-height: 1;
-  color: var(--tierra-acento); margin-bottom: 0.75rem;
-}
-.paso-titulo { font-size: 14px; font-weight: 500; color: var(--tierra-oscuro); margin-bottom: 0.4rem; }
-.paso-texto { font-size: 13px; line-height: 1.6; color: var(--texto-secundario); }
-
 /* Bloque "¿Compraste el lote?" y caja de arquitectos */
 .lote, .arq-caja {
   display: flex; align-items: center; justify-content: space-between; gap: 2rem;
@@ -781,9 +765,6 @@ button.thumb { padding: 0; font: inherit; }
 .boton i { font-size: 16px; }
 
 @media (max-width: 900px) {
-  .pasos { grid-template-columns: 1fr; gap: 0; }
-  .paso { display: grid; grid-template-columns: 44px 1fr; column-gap: 0.75rem; padding: 1rem 0; }
-  .paso-num { grid-row: span 2; font-size: 30px; margin-bottom: 0; }
   .lote, .arq-caja { flex-direction: column; align-items: flex-start; gap: 1.25rem; padding: 1.5rem 1.25rem; }
 }
 
