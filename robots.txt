@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /herramientas/
+
+Sitemap: https://m-o-construcciones.vercel.app/sitemap.xml
