@@ -36,19 +36,35 @@ def correr(cmd):
         sys.exit("ffmpeg falló:\n" + r.stderr[-2000:])
 
 
+FUNDIDO = 0.8  # segundos de fundido entre un tramo y el siguiente (en vez de un corte seco)
+
+
+def duracion(archivo):
+    r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                        "-of", "default=nw=1:nk=1", str(archivo)], capture_output=True, text=True)
+    return float(r.stdout.strip())
+
+
 def unir_tramos(original, tramos, destino):
-    """Corta los tramos y los pega en un archivo intermedio de buena calidad."""
+    """Corta los tramos y los une con un fundido corto, en un archivo intermedio de buena calidad."""
+    total = duracion(original)
     cmd = ["ffmpeg", "-v", "error", "-y"]
+    durs = []
     for t in tramos:
         ini, fin = t.split("-")
-        cmd += ["-ss", ini]
-        if fin != "fin":
-            cmd += ["-t", f"{float(fin) - float(ini):.3f}"]
-        cmd += ["-i", str(original)]
+        fin = total if fin == "fin" else float(fin)
+        durs.append(fin - float(ini))
+        cmd += ["-ss", ini, "-t", f"{durs[-1]:.3f}", "-i", str(original)]
     n = len(tramos)
-    partes = "".join(f"[{i}:v]scale=1920:1080:flags=lanczos,setsar=1,fps=30[v{i}];" for i in range(n))
-    une = "".join(f"[v{i}]" for i in range(n)) + f"concat=n={n}:v=1:a=0[out]"
-    cmd += ["-filter_complex", partes + une, "-map", "[out]", "-an",
+    filtro = "".join(f"[{i}:v]scale=1920:1080:flags=lanczos,setsar=1,fps=30,format=yuv420p[v{i}];"
+                     for i in range(n))
+    previo, acumulado = "v0", durs[0]
+    for i in range(1, n):
+        offset = acumulado - FUNDIDO
+        filtro += f"[{previo}][v{i}]xfade=transition=fade:duration={FUNDIDO}:offset={offset:.3f}[x{i}];"
+        previo, acumulado = f"x{i}", offset + durs[i]
+    filtro += f"[{previo}]null[out]"
+    cmd += ["-filter_complex", filtro, "-map", "[out]", "-an",
             "-c:v", "libx264", "-preset", "veryfast", "-crf", "14", str(destino)]
     correr(cmd)
 
