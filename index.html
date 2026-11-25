@@ -14,12 +14,42 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<title>MO Construcciones · Zona Norte GBA</title>
-<meta name="description" content="Empresa familiar de construcción con 30 años de trayectoria en Zona Norte del GBA. Casas a medida, acompañamiento en cada etapa.">
+<title>M.O Construcciones · Construcción de casas en Pilar</title>
+<meta name="description" content="Empresa familiar con 30 años construyendo casas en Pilar y zona norte. Obra nueva y ampliaciones, con seguimiento en cada etapa.">
+<link rel="canonical" href="https://m-o-construcciones.vercel.app/">
+
+<!-- Vista previa al compartir (WhatsApp, Instagram, Facebook) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="M.O Construcciones">
+<meta property="og:title" content="M.O Construcciones · Construcción de casas en Pilar">
+<meta property="og:description" content="Empresa familiar con 30 años construyendo casas en Pilar y zona norte. Obra nueva y ampliaciones, con seguimiento en cada etapa.">
+<meta property="og:url" content="https://m-o-construcciones.vercel.app/">
+<meta property="og:image" content="https://m-o-construcciones.vercel.app/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Galería de una casa construida por M.O Construcciones, con el logo">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Datos de empresa para Google (sin dirección y sin precios: regla del Paso 8) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "M.O Construcciones",
+  "description": "Empresa familiar con 30 años construyendo casas en Pilar y zona norte. Obra nueva y ampliaciones, con seguimiento en cada etapa.",
+  "url": "https://m-o-construcciones.vercel.app/",
+  "logo": "https://m-o-construcciones.vercel.app/img/apple-touch-icon.png",
+  "image": "https://m-o-construcciones.vercel.app/img/og.jpg",
+  "telephone": "+54 11 3396-7462",
+  "areaServed": { "@type": "City", "name": "Pilar, Buenos Aires" },
+  "sameAs": ["https://www.instagram.com/m.o_construcciones"]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
@@ -52,10 +82,9 @@
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-video-wrap">
-    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="video/portada.jpg" aria-hidden="true">
-      <source media="(max-width: 767px)" src="video/portada-vertical.mp4" type="video/mp4">
-      <source src="video/portada.mp4" type="video/mp4">
-    </video>
+    <!-- El archivo lo elige sitio.js según la pantalla, para que se baje uno solo -->
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="video/portada.jpg" aria-hidden="true"
+           data-horizontal="video/portada.mp4" data-vertical="video/portada-vertical.mp4"></video>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -63,10 +92,10 @@
     <h1 class="hero-title">Construimos tranquilidad.</h1>
     <p class="hero-sub">Acompañamiento en cada etapa de tu obra</p>
   </div>
-  <div class="hero-scroll">
-    <span>Ver obras</span>
-    <i class="ti ti-chevron-down"></i>
-  </div>
+  <a class="hero-scroll" id="heroScroll" href="#como-trabajamos">
+    <span>Conocenos</span>
+    <i class="ti ti-chevron-down" aria-hidden="true"></i>
+  </a>
 </section>
 
 <!-- PORTFOLIO -->
@@ -139,7 +168,7 @@
         <span class="nos-stat-num">30</span>
         años en construcción
       </div>
-      <p class="nos-texto-intro">Somos una empresa familiar de zona norte. Empezamos hace más de tres décadas y seguimos construyendo con el mismo compromiso:</p>
+      <p class="nos-texto-intro">Somos una empresa familiar de zona norte dedicada a la construcción de casas en Pilar, en lotes propios y en barrios cerrados. Empezamos hace más de tres décadas y seguimos construyendo con el mismo compromiso:</p>
       <span class="nos-texto-dest">que cada cliente disfrute su obra.</span>
       <div class="nos-div"></div>
       <p class="nos-texto-sec">Sabemos que invertir en tu casa es una decisión enorme. Por eso trabajamos para que el proceso sea tranquilo, transparente y tuyo.</p>
@@ -212,27 +241,27 @@
       <div class="divider-o">o dejanos tus datos</div>
       <form class="form" onsubmit="enviarFormulario(event)">
         <div class="form-group">
-          <label>Soy</label>
-          <div class="tipo-btns">
-            <div class="tipo-btn active" onclick="selTipo(this)">Cliente particular</div>
-            <div class="tipo-btn" onclick="selTipo(this)">Arquitecto / Estudio</div>
+          <span class="form-label" id="soy-label">Soy</span>
+          <div class="tipo-btns" role="group" aria-labelledby="soy-label">
+            <button type="button" class="tipo-btn active" aria-pressed="true" onclick="selTipo(this)">Cliente particular</button>
+            <button type="button" class="tipo-btn" aria-pressed="false" onclick="selTipo(this)">Arquitecto / Estudio</button>
           </div>
           <input type="hidden" name="tipo" id="tipo-input" value="Cliente particular">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
+            <label for="f-nombre">Nombre</label>
+            <input type="text" id="f-nombre" name="nombre" autocomplete="name" placeholder="Tu nombre" required>
           </div>
           <div class="form-group">
-            <label>WhatsApp</label>
-            <input type="tel" name="telefono" placeholder="+54 11..." required>
+            <label for="f-telefono">WhatsApp</label>
+            <input type="tel" id="f-telefono" name="telefono" autocomplete="tel" placeholder="+54 11..." required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Zona de la obra</label>
-            <select name="zona">
+            <label for="f-zona">Zona de la obra</label>
+            <select id="f-zona" name="zona">
               <option>Pilar</option>
               <option>Manzanares</option>
               <option>Capilla del Señor</option>
@@ -245,8 +274,8 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Tipo de proyecto</label>
-            <select name="proyecto">
+            <label for="f-proyecto">Tipo de proyecto</label>
+            <select id="f-proyecto" name="proyecto">
               <option>Casa nueva</option>
               <option>Ampliación</option>
               <option>Otro</option>
@@ -254,8 +283,8 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Contanos brevemente</label>
-          <textarea name="mensaje" placeholder="Terreno, m² aproximados, si ya tenés plano o no..."></textarea>
+          <label for="f-mensaje">Contanos brevemente</label>
+          <textarea id="f-mensaje" name="mensaje" placeholder="Terreno, m² aproximados, si ya tenés plano o no..."></textarea>
         </div>
         <button type="submit" class="form-submit">Enviar consulta</button>
         <p class="form-nota"><i class="ti ti-clock"></i> Te respondemos en menos de 24 horas</p>

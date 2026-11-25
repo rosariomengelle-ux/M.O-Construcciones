@@ -22,7 +22,14 @@ Se va completando a medida que se suman mejoras.
 | `herramientas/video_portada.py` | El programa que arma esos tres archivos a partir del video original. |
 | `img/logo-horizontal.svg` | El logo M.O del encabezado y del pie (copia de `M.O\Logo\Entrega\02 Versiones\horizontal`). El color lo pone la página: blanco sobre el video, grafito sobre fondo claro. |
 | `favicon.ico` / `favicon.svg` / `img/apple-touch-icon.png` | El ícono de la pestaña del navegador y del acceso directo en el celular (copias de `M.O\Logo\Entrega\05 Web`). |
+| `img/og.jpg` | La imagen que aparece al compartir el link por WhatsApp, Instagram o Facebook (1200×630). Hoy es un cuadro del video con el logo; cuando haya fotos de obra conviene cambiarla. |
+| `img/iconos/` | Los íconos de la página (de Tabler Icons, licencia MIT). |
+| `robots.txt` / `sitemap.xml` | Para Google: qué puede leer y cuál es la dirección de la página. |
 | `LEEME_WEB.md` | Este archivo. |
+
+**Si algún día se compra un dominio propio** (por ejemplo `.com.ar`), hay que cambiar la dirección
+`https://m-o-construcciones.vercel.app/` en `index.html` (canonical, `og:url`, `og:image` y los datos de empresa),
+en `robots.txt` y en `sitemap.xml`. Pedíselo a Claude Code.
 
 ---
 

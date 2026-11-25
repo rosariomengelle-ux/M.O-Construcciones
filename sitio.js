@@ -1,22 +1,18 @@
-// Video de portada: con "menos movimiento" pedido en el equipo no se descarga
-// y queda la imagen fija; si el video no carga, también queda la imagen fija.
+// Video de portada: se elige un solo archivo según la pantalla (vertical en celular).
+// Con "menos movimiento" pedido en el equipo no se descarga y queda la imagen fija;
+// si el video no carga, también queda la imagen fija.
 (function () {
   const v = document.getElementById('heroVideo');
   if (!v) return;
-  const sacarVideo = () => {
-    v.pause();
-    v.querySelectorAll('source').forEach(s => s.remove());
-    v.removeAttribute('src');
-    v.load();
+  const sinVideo = () => {
     v.style.display = 'none';
     v.parentElement.classList.add('sin-video');
   };
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { sacarVideo(); return; }
-  const fuentes = v.querySelectorAll('source');
-  fuentes[fuentes.length - 1].addEventListener('error', () => {
-    v.style.display = 'none';
-    v.parentElement.classList.add('sin-video');
-  });
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { sinVideo(); return; }
+  v.addEventListener('error', sinVideo);
+  v.src = window.matchMedia('(max-width: 767px)').matches ? v.dataset.vertical : v.dataset.horizontal;
+  const p = v.play();
+  if (p && p.catch) p.catch(() => {});  // si el navegador no deja reproducir solo, queda la imagen fija del video
 })();
 
 // ══ Obras y testimonios ══
@@ -46,6 +42,11 @@ function obraValida(o) {
 function mostrarSeccion(id, visible) {
   document.getElementById(id).hidden = !visible;
   document.querySelectorAll(`[data-seccion="${id}"]`).forEach(a => { a.hidden = !visible; });
+  if (id === 'obras' && visible) {          // la flecha de la portada lleva a las obras cuando hay
+    const flecha = document.getElementById('heroScroll');
+    flecha.href = '#obras';
+    flecha.querySelector('span').textContent = 'Ver obras';
+  }
 }
 
 function tarjetaObra(o) {
@@ -229,9 +230,13 @@ function elegirArquitecto() {
 
 // Tipo de cliente
 function selTipo(el) {
-  el.closest('.tipo-btns').querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
+  el.closest('.tipo-btns').querySelectorAll('.tipo-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-pressed', 'false');
+  });
   el.classList.add('active');
-  document.getElementById('tipo-input').value = el.textContent;
+  el.setAttribute('aria-pressed', 'true');
+  document.getElementById('tipo-input').value = el.textContent.trim();
 }
 
 // Formulario → WhatsApp
