@@ -221,6 +221,12 @@ document.getElementById('modal').addEventListener('click', function(e) {
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
 
+// Botón "Hablemos" de arquitectos: deja elegido "Arquitecto / Estudio" en el formulario
+function elegirArquitecto() {
+  const b = [...document.querySelectorAll('.tipo-btn')].find(x => x.textContent.trim() === 'Arquitecto / Estudio');
+  if (b) selTipo(b);
+}
+
 // Tipo de cliente
 function selTipo(el) {
   el.closest('.tipo-btns').querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
@@ -253,7 +259,7 @@ function toggleMenu() {
 }
 
 // Nav scroll + active links + back to top + hide on footer
-const sections = ['obras', 'nosotros', 'testimonios', 'contacto'];
+const sections = ['obras', 'como-trabajamos', 'nosotros', 'testimonios', 'contacto'];
 const navLinks = document.querySelectorAll('.nav-links a');
 const backTop = document.getElementById('backTop');
 const nav = document.getElementById('nav');
