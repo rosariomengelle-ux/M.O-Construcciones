@@ -1,15 +1,16 @@
 """
 Arma los tres archivos del video de portada a partir del video original.
 
-  video/portada.mp4           horizontal 1920x1080, sin audio  (objetivo: 6 MB o menos)
+  video/portada.mp4           horizontal 1920x1080, sin audio  (objetivo: 10 MB o menos)
   video/portada-vertical.mp4  vertical 720x1280 para celular    (objetivo: 4 MB o menos)
   video/portada.jpg           imagen fija que se ve mientras carga el video
 
 Uso (desde la carpeta del repositorio):
   python herramientas/video_portada.py "C:\\ruta\\al\\video original.mp4"
-  python herramientas/video_portada.py "original.mp4" --tramos 8.3-13.6 15.75-20.2 35.25-fin --poster 2
+  python herramientas/video_portada.py "original.mp4" --tramos 0-fin --poster 2
 
---tramos  qué partes del original usar, en segundos ("fin" = hasta el final). Se pegan en orden.
+--tramos  qué partes del original usar, en segundos ("fin" = hasta el final). Por defecto, el video entero.
+          Si se ponen varias, se pegan en orden con un fundido corto.
 --poster  segundo del video ya armado que se usa como imagen fija (por defecto 2).
 
 Necesita ffmpeg instalado. El original no se toca.
@@ -20,12 +21,12 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 SALIDA = REPO / "video"
 
-# Tramos elegidos el 25-11-2026 sobre M.0.mp4: sin personas y sin la parte de tierra.
-TRAMOS_POR_DEFECTO = ["8.3-13.6", "15.75-20.2", "35.25-fin"]
+# Por defecto se usa el video entero, tal cual está editado (decisión de Rosario, 25-11-2026).
+TRAMOS_POR_DEFECTO = ["0-fin"]
 
 FORMATOS = [
     # nombre, filtro de imagen, objetivo en MB
-    ("portada.mp4", "scale=1920:1080:flags=lanczos,setsar=1", 6),
+    ("portada.mp4", "scale=1920:1080:flags=lanczos,setsar=1", 10),
     ("portada-vertical.mp4", "crop=ih*9/16:ih,scale=720:1280:flags=lanczos,setsar=1", 4),
 ]
 
@@ -70,16 +71,16 @@ def unir_tramos(original, tramos, destino):
 
 
 def codificar(intermedio, nombre, filtro, objetivo_mb):
+    """Calidad alta (crf 24) con un tope de bitrate calculado para no pasar el peso objetivo."""
     destino = SALIDA / nombre
-    for crf in (26, 28, 30, 32):
-        correr(["ffmpeg", "-v", "error", "-y", "-i", str(intermedio), "-vf", filtro, "-an",
-                "-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf),
-                "-pix_fmt", "yuv420p", "-profile:v", "high", "-movflags", "+faststart", str(destino)])
-        mb = destino.stat().st_size / 1_000_000
-        if mb <= objetivo_mb:
-            break
+    tope = int(objetivo_mb * 8_000_000 / duracion(intermedio) * 0.92)  # bits por segundo
+    correr(["ffmpeg", "-v", "error", "-y", "-i", str(intermedio), "-vf", filtro, "-an",
+            "-c:v", "libx264", "-preset", "slow", "-crf", "24",
+            "-maxrate", str(tope), "-bufsize", str(tope * 2),
+            "-pix_fmt", "yuv420p", "-profile:v", "high", "-movflags", "+faststart", str(destino)])
+    mb = destino.stat().st_size / 1_000_000
     estado = "OK" if mb <= objetivo_mb else "SUPERA EL OBJETIVO"
-    print(f"  {nombre}: {mb:.1f} MB (crf {crf}, objetivo {objetivo_mb} MB) {estado}")
+    print(f"  {nombre}: {mb:.1f} MB (objetivo {objetivo_mb} MB) {estado}")
 
 
 def main():
@@ -105,7 +106,7 @@ def main():
         for nombre, filtro, objetivo in FORMATOS:
             codificar(intermedio, nombre, filtro, objetivo)
         correr(["ffmpeg", "-v", "error", "-y", "-ss", str(a.poster), "-i", str(intermedio),
-                "-frames:v", "1", "-q:v", "4", str(SALIDA / "portada.jpg")])  # q 4 ≈ JPG al 80 %
+                "-frames:v", "1", "-q:v", "6", str(SALIDA / "portada.jpg")])  # q 6 ≈ JPG al 70 %, liviano
         print(f"  portada.jpg: {(SALIDA / 'portada.jpg').stat().st_size / 1000:.0f} KB (segundo {a.poster})")
     print("Listo.")
 

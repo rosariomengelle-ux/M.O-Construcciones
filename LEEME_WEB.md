@@ -41,19 +41,19 @@ Se va completando a medida que se suman mejoras.
 
 ## 3. Cómo cambiar el video de portada
 
-El video actual sale de `OneDrive\CONSTRUCCIONES\M.O\WEB\M.0.mp4`, usando solo las partes sin personas y sin tierra
-(de 8,3 a 13,6 s; de 15,75 a 20,2 s; y de 35,25 s al final). Dura 27 segundos y se repite.
+El video actual es `OneDrive\CONSTRUCCIONES\M.O\WEB\M.0.mp4` entero, tal cual está editado, sin sonido. Dura 53 segundos y se repite.
 
 Para cambiarlo (o pedírselo a Claude Code):
 
 1. En la carpeta del repositorio, abrí una terminal y escribí:
    ```
-   python herramientas/video_portada.py "C:\ruta\del\video nuevo.mp4" --tramos 0-25 --poster 2
+   python herramientas/video_portada.py "C:\ruta\del\video nuevo.mp4"
    ```
-   - `--tramos`: qué partes del video usar, en segundos. Podés poner varias: `5-12 20-35 40-fin`.
-   - `--poster`: en qué segundo del video ya armado se toma la imagen fija.
+   - Sin nada más, usa el video entero.
+   - `--tramos` (opcional): solo algunas partes, en segundos. Por ejemplo `--tramos 5-12 20-35 40-fin`.
+   - `--poster` (opcional): en qué segundo se toma la imagen fija (por defecto, el 2).
 2. El programa reemplaza los tres archivos de `video/` con el mismo nombre y muestra cuánto pesa cada uno
-   (objetivo: 6 MB el horizontal y 4 MB el vertical; si se pasa, baja la calidad solo).
+   (objetivo: 10 MB el horizontal y 4 MB el vertical; ajusta la calidad solo para no pasarse).
 3. Subí el cambio en una rama, revisá la vista previa y hacé el merge (punto 2).
 
 Qué mostrar (guía de estilo §2.4): obra terminada y limpia, sin personas.
